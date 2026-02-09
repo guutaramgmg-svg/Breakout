@@ -82,11 +82,12 @@ public class BlockController : MonoBehaviour
     /// </summary>
     protected virtual void OnBreak()
     {
-        // GameManager にブロック破壊を通知
-        FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
 
         // 自分自身を削除
         Destroy(gameObject);
+        // GameManager にブロック破壊を通知
+        FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
+
     }
 
     /// <summary>

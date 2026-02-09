@@ -153,3 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpecialBlock
   blockType: 2
   hp: 2
+  damageBall: {fileID: 949194361860259707, guid: 7b080c6d8b6de43ec854e490277bc3e5, type: 3}

@@ -109,12 +109,12 @@ public class GameManager : MonoBehaviour
         if (isGameClear) return;
 
         // 残りブロック数を減らす
+        ScoreManager.Instance.AddScore(Random.Range(9,30));
         blockCount--;
-
         // 全て壊されたらゲームクリア
         if (blockCount <= 0)
         {
-            GameClear();
+            Invoke("GameClear", 1f);
         }
     }
 

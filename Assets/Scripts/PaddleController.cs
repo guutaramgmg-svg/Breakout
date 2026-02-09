@@ -23,6 +23,8 @@ public class PaddleController : MonoBehaviour
     // 1.0 = 通常速度 / 0.5 = 半分の速さ
     float speedMultiplier = 1f;
 
+    private int hp = 3;
+
     void Start()
     {
         // Rigidbody2D を取得
@@ -81,5 +83,17 @@ public class PaddleController : MonoBehaviour
 
         // 速度を元に戻す
         speedMultiplier = 1f;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // ダメージボール受けたら
+        if (collision.gameObject.CompareTag("Damage"))
+        {
+            hp--;
+            LifeManager.Instance.AddScore(-15);
+
+            Debug.Log("HP:" + hp);
+        }
     }
 }

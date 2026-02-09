@@ -1,11 +1,18 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpecialBlock : BlockController
 {
+    float interval = 3f;
+    public GameObject damageBall;
+
     protected override void Start()
     {
         hp = 2;
         base.Start();
+        StartCoroutine("ShootRoutine");
+
     }
 
     protected override void OnBreak()
@@ -30,4 +37,25 @@ public class SpecialBlock : BlockController
             hp == 2 ? Color.yellow :
                       Color.red;
     }
+
+    /// <summary>
+    /// 一定時間ごとにボールを発射するコルーチン
+    /// </summary>
+    IEnumerator ShootRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(0.2f,interval));
+            Shoot(transform.position);
+        }
+    }
+
+    /// <summary>
+    /// 指定位置にボールを生成する
+    /// </summary>
+    public void Shoot(Vector2 pos)
+    {
+        Instantiate(damageBall, pos, Quaternion.identity);
+    }
+
 }

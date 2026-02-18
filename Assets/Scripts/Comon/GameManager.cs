@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject specialBlock;  // 特殊ブロック
 
     // ===== UI =====
+    [SerializeField] GameObject gameStart;     // ゲームスタート表示UI
     [SerializeField] GameObject gameClear;     // ゲームクリア表示UI
+    [SerializeField] GameObject score;         // ゲームスコア表示UI
+    [SerializeField] GameObject lifePoint;     // ライプポイント表示UI
 
     // ===== ボール生成間隔 =====
     [SerializeField] float interval = 5f;      // 何秒ごとにボールを出すか
@@ -34,6 +37,17 @@ public class GameManager : MonoBehaviour
     {
         // ゲーム開始時はクリアUIを非表示
         gameClear.SetActive(false);
+        gameStart.SetActive(true);
+        score.SetActive(false);
+        lifePoint.SetActive(false);
+    }
+
+
+    public void GameStart()
+    {
+        gameStart.SetActive(false);
+        score.SetActive(true);
+        lifePoint.SetActive(true);
 
         // ブロックを配置（横 -2～2 / 縦 0～3）
         for (int x = -2; x <= 2; x++)
@@ -48,7 +62,7 @@ public class GameManager : MonoBehaviour
         Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
 
         // 一定間隔でボールを出すコルーチン開始
-        StartCoroutine(ShootRoutine());
+        StartCoroutine(ShootRoutine());        
     }
 
     /// <summary>

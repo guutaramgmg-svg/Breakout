@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HardBlock : BlockController
+public class HardEnemy : EnemyController
 {
     protected override void Start()
     {

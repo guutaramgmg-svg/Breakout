@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4085e081dcf24eb0bf1b75b9bf81863, type: 3}
+  m_Name: Stage01
+  m_EditorClassIdentifier: Assembly-CSharp::StageSequencer
+  filename: Stage01
+  enemyPrefabs:
+  - {fileID: 9083112487430321884, guid: 79865806c356345f1bf707a954e6ef40, type: 3}
+  - {fileID: 1930659052684553384, guid: 2e3b5d4d241544286b3b206598d402e3, type: 3}
+  - {fileID: 891128477830123392, guid: 7e16fd2eb0f0548e3a9b3066ba231d19, type: 3}

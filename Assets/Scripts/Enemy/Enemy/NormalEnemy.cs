@@ -1,5 +1,5 @@
 using UnityEngine;
-public class NormalBlock : BlockController
+public class NormalEnemy : EnemyController
 {
     protected override void Start()
     {

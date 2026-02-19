@@ -48,21 +48,13 @@ public class GameManager : MonoBehaviour
         gameStart.SetActive(false);
         score.SetActive(true);
         lifePoint.SetActive(true);
-
-        // ブロックを配置（横 -2～2 / 縦 0～3）
-        for (int x = -2; x <= 2; x++)
-        {
-            for (int y = 0; y <= 3; y++)
-            {
-                SpawnBlock(new Vector2(x, y));
-            }
-        }
-
         // 最初のボールを生成
         Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
-
         // 一定間隔でボールを出すコルーチン開始
-        StartCoroutine(ShootRoutine());        
+        StartCoroutine(ShootRoutine());
+
+        //ステージ生成開始
+        StageController.Instance.GameStart();
     }
 
     /// <summary>
@@ -123,13 +115,15 @@ public class GameManager : MonoBehaviour
         if (isGameClear) return;
 
         // 残りブロック数を減らす
-        ScoreManager.Instance.AddScore(Random.Range(9,30));
+        ScoreManager.Instance.AddScore(33);
         blockCount--;
         // 全て壊されたらゲームクリア
-        if (blockCount <= 0)
+
+        if (ScoreManager.Instance.score > 600)
         {
             Invoke("GameClear", 1f);
         }
+
     }
 
     /// <summary>

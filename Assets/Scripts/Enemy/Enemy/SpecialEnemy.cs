@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SpecialBlock : BlockController
+public class SpecialEnemy : EnemyController
 {
     float interval = 3f;
     public GameObject damageBall;

@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
 
     // ===== スコア数値 =====
-    private int score;        // 実際のスコア（最終値）
+    public int score;        // 実際のスコア（最終値）
     private int preScore;     // 表示用スコア（アニメーション中に変化）
     private bool isCountUp;   // カウントアップ演出中かどうか
 

@@ -13,22 +13,18 @@ public class GameManager : MonoBehaviour
 {
     // ===== プレハブ参照 =====
     [SerializeField] GameObject ball;          // ボールのプレハブ
-    [SerializeField] GameObject normalBlock;   // 通常ブロック
-    [SerializeField] GameObject hardBlock;     // 硬いブロック
-    [SerializeField] GameObject specialBlock;  // 特殊ブロック
 
     // ===== UI =====
-    [SerializeField] GameObject gameStart;     // ゲームスタート表示UI
-    [SerializeField] GameObject gameClear;     // ゲームクリア表示UI
-    [SerializeField] GameObject score;         // ゲームスコア表示UI
-    [SerializeField] GameObject lifePoint;     // ライプポイント表示UI
+    [SerializeField] GameObject uIStageSelect;     // ゲームスタート表示UI
+    [SerializeField] GameObject uIGameOver;     // ゲームクリア表示UI
+    [SerializeField] GameObject uIScore;         // ゲームスコア表示UI
+    [SerializeField] GameObject uIlifePoint;     // ライプポイント表示UI
 
     // ===== ボール生成間隔 =====
     [SerializeField] float interval = 5f;      // 何秒ごとにボールを出すか
 
     // ===== ゲーム状態管理 =====
-    int blockCount = 0;        // 現在残っているブロック数
-    bool isGameClear = false;  // ゲームクリア済みかどうか
+    bool isGameOver = false;  // ゲームクリア済みかどうか
 
     /// <summary>
     /// ゲーム開始時に一度だけ呼ばれる
@@ -36,25 +32,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // ゲーム開始時はクリアUIを非表示
-        gameClear.SetActive(false);
-        gameStart.SetActive(true);
-        score.SetActive(false);
-        lifePoint.SetActive(false);
+        uIGameOver.SetActive(false);
+        uIStageSelect.SetActive(true);
+        uIScore.SetActive(false);
+        uIlifePoint.SetActive(false);
     }
 
 
-    public void GameStart()
+    public void GameStart(int stage)
     {
-        gameStart.SetActive(false);
-        score.SetActive(true);
-        lifePoint.SetActive(true);
+        uIStageSelect.SetActive(false);
+        uIScore.SetActive(true);
+        uIlifePoint.SetActive(true);
         // 最初のボールを生成
         Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
         // 一定間隔でボールを出すコルーチン開始
         StartCoroutine(ShootRoutine());
 
         //ステージ生成開始
-        StageController.Instance.GameStart();
+        StageController.Instance.GameStart(stage);
     }
 
     /// <summary>
@@ -83,42 +79,16 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定位置にランダムなブロックを生成する
-    /// </summary>
-    void SpawnBlock(Vector2 pos)
-    {
-        // 0～9 の乱数を取得
-        int rand = Random.Range(0, 10);
-
-        // 確率でブロックを切り替える
-        // 0～5 : 通常
-        // 6～8 : 硬い
-        // 9    : 特殊
-        GameObject prefab =
-            rand < 6 ? normalBlock :
-            rand < 9 ? hardBlock :
-                       specialBlock;
-
-        // ブロック生成
-        Instantiate(prefab, pos, Quaternion.identity);
-
-        // 残りブロック数を増やす
-        blockCount++;
-    }
-
-    /// <summary>
     /// ブロックが破壊された時に呼ばれる
     /// </summary>
     public void OnBlockDestroyed()
     {
         // すでにゲームクリアしていたら何もしない
-        if (isGameClear) return;
+        if (isGameOver) return;
 
         // 残りブロック数を減らす
         ScoreManager.Instance.AddScore(33);
-        blockCount--;
         // 全て壊されたらゲームクリア
-
         if (ScoreManager.Instance.score > 600)
         {
             Invoke("GameClear", 1f);
@@ -132,10 +102,10 @@ public class GameManager : MonoBehaviour
     void GameClear()
     {
         // クリアUIを表示
-        gameClear.SetActive(true);
+        uIGameOver.SetActive(true);
 
         // クリア状態にする
-        isGameClear = true;
+        isGameOver = true;
 
         Debug.Log("GAME CLEAR!!");
 

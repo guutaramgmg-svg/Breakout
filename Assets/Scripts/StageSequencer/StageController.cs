@@ -1,16 +1,19 @@
 using System.Buffers;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageController : MonoBehaviour
 {
-    [SerializeField] private StageSequencer sequencer = default;
+    [SerializeField] private List<StageSequencer> sequencer = default;
 
     [SerializeField] public Transform enemyPool = default;
 
 
     float stageProgressTime = 0;
+
+    public int stageSelect = 0;
 
     private static StageController instance;
     public static StageController Instance { get => instance; }
@@ -23,20 +26,21 @@ public class StageController : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void GameStart()
+    public void GameStart(int stage)
     {
-        sequencer.Load();
-        sequencer.Reset();
+        
+        sequencer[stage].Load();
+        sequencer[stage].Reset();
         stageProgressTime = 0;
 
-        StartCoroutine(StageCreate());
+        StartCoroutine(StageCreate(stage));
 
     }
-    IEnumerator StageCreate()
+    IEnumerator StageCreate(int stage)
     {
         while (stageProgressTime < 200f)
         {
-            sequencer.Step(stageProgressTime);
+            sequencer[stage].Step(stageProgressTime);
 
             stageProgressTime += Time.deltaTime;
             yield return null;

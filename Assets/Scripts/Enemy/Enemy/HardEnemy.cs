@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HardEnemy : EnemyController
+public class HardEnemy : EnemyStatus
 {
     protected override void Start()
     {

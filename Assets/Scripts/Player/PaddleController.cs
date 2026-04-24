@@ -58,6 +58,75 @@ public class PaddleController : MonoBehaviour
         }
     }
 
+
+    Vector2 touchStartPos;
+    bool isSwiping = false;
+
+    // フリック判定のしきい値
+    float swipeThreshold = 50f;
+    void Update()
+    {
+        if (Pointer.current == null) return;
+
+        // 押した瞬間
+        if (Pointer.current.press.wasPressedThisFrame)
+        {
+            touchStartPos = Pointer.current.position.ReadValue();
+            isSwiping = true;
+        }
+
+        // 離した瞬間
+        if (Pointer.current.press.wasReleasedThisFrame && isSwiping)
+        {
+            Vector2 endPos = Pointer.current.position.ReadValue();
+            Vector2 swipe = endPos - touchStartPos;
+
+            DetectSwipe(swipe);
+
+            isSwiping = false;
+        }
+    }
+    void DetectSwipe(Vector2 swipe)
+    {
+        // 短すぎる動きは無視
+        if (swipe.magnitude < swipeThreshold) return;
+
+        // 上フリック
+        if (swipe.y > Mathf.Abs(swipe.x))
+        {
+            OnSwipeUp();
+        }
+        // 下フリック
+        else if (-swipe.y > Mathf.Abs(swipe.x))
+        {
+            OnSwipeDown();
+        }
+    }
+    void OnSwipeUp()
+    {
+        Debug.Log("上フリック！");
+
+        // 例①：スロー発動
+        ApplySlow(0.5f, 2f);
+
+        // 例②：スコア加算
+        LifeManager.Instance.AddScore(20);
+
+        // 例③：弾発射とかもここでOK
+    }
+    void OnSwipeDown()
+    {
+        Debug.Log("下フリック！");
+
+        // 例①：スピード回復
+        ApplySlow(1f, 0f);
+
+        // 例②：スコア減少（リスク行動）
+        LifeManager.Instance.AddScore(-10);
+
+        // 例③：防御（シールド）
+    }
+
     /// <summary>
     /// スロー状態を付与する
     /// </summary>

@@ -1,5 +1,5 @@
 using UnityEngine;
-public class NormalEnemy : EnemyController
+public class NormalEnemy : EnemyStatus
 {
     protected override void Start()
     {
@@ -7,8 +7,4 @@ public class NormalEnemy : EnemyController
         base.Start();
     }
 
-    protected override void UpdateColor()
-    {
-        sr.color = Color.paleGreen;
-    }
 }

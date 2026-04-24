@@ -76,7 +76,7 @@ public class StageSequencer : ScriptableObject
 
     public void Step(float _stageProgressTime)
     {
-        Debug.Log("Step");
+//        Debug.Log("Step");
         while (stagedataidx < stageDatas.Length &&
          stageDatas[stagedataidx].eventPos <= _stageProgressTime)
         {

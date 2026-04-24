@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
         uIScore.SetActive(true);
         uIlifePoint.SetActive(true);
         // 最初のボールを生成
-        Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
+        // Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
         // 一定間隔でボールを出すコルーチン開始
-        StartCoroutine(ShootRoutine());
+        // StartCoroutine(ShootRoutine());
 
         //ステージ生成開始
         StageController.Instance.GameStart(stage);
@@ -93,7 +93,6 @@ public class GameManager : MonoBehaviour
         {
             Invoke("GameClear", 1f);
         }
-
     }
 
     /// <summary>

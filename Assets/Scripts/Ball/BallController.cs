@@ -30,6 +30,18 @@ public class BallController : MonoBehaviour
     // すでに拡散済みかどうか
     private bool hasSpread = false;
 
+    // パドルに当たっていない時間
+    float timeSinceLastPaddleHit = 0f;
+
+    // 制限時間（秒）
+    public float lifeTimeWithoutPaddle = 5f;
+
+    // 点滅開始までの残り時間
+    public float blinkStartTime = 1.5f;
+
+    // 点滅速度
+    public float blinkSpeed = 10f;
+
     /// <summary>
     /// オブジェクト生成時に最初に呼ばれる
     /// 必須コンポーネントの取得
@@ -62,8 +74,41 @@ public class BallController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // 画面下に落ちたら削除
         if (transform.position.y < -5)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        timeSinceLastPaddleHit += Time.deltaTime;
+
+        float ratio = timeSinceLastPaddleHit / lifeTimeWithoutPaddle;
+        float remainingTime = lifeTimeWithoutPaddle - timeSinceLastPaddleHit;
+
+        // ===== スピード =====
+        float speedMultiplier = Mathf.Lerp(1f, 2.5f, ratio * ratio);
+
+        Vector2 dir = rb.linearVelocity.normalized;
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            rb.linearVelocity = dir * speed * speedMultiplier;
+        }
+
+        // ===== 色 =====
+        Color baseColor = hasSpread ? Color.magenta : Color.white;
+
+        if (remainingTime <= blinkStartTime)
+        {
+            float alpha = Mathf.Lerp(0.3f, 1f, Mathf.Abs(Mathf.Sin(Time.time * blinkSpeed)));
+            sr.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
+        }
+        else
+        {
+            sr.color = baseColor;
+        }
+
+        // ===== 消滅 =====
+        if (timeSinceLastPaddleHit >= lifeTimeWithoutPaddle)
         {
             Destroy(gameObject);
         }
@@ -91,6 +136,8 @@ public class BallController : MonoBehaviour
         // パドルに当たった時の反射制御
         if (collision.gameObject.CompareTag("Paddle"))
         {
+            // タイマーリセット
+            timeSinceLastPaddleHit = 0f;
             // 衝突位置の差分
             float hitPos =
                 transform.position.x - collision.transform.position.x;

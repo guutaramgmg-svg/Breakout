@@ -9,6 +9,9 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PaddleController : MonoBehaviour
 {
+    // ボール
+    [SerializeField] GameObject ball;          // ボールのプレハブ
+
     // パドルの基本移動速度
     public float speed = 10f;
 
@@ -24,6 +27,7 @@ public class PaddleController : MonoBehaviour
     float speedMultiplier = 1f;
 
     private int hp = 3;
+
 
     void Start()
     {
@@ -106,25 +110,13 @@ public class PaddleController : MonoBehaviour
     {
         Debug.Log("上フリック！");
 
-        // 例①：スロー発動
-        ApplySlow(0.5f, 2f);
-
-        // 例②：スコア加算
-        LifeManager.Instance.AddScore(20);
-
-        // 例③：弾発射とかもここでOK
     }
     void OnSwipeDown()
     {
         Debug.Log("下フリック！");
+        // ボール発射
+        Instantiate(ball, this.transform.position, Quaternion.identity);
 
-        // 例①：スピード回復
-        ApplySlow(1f, 0f);
-
-        // 例②：スコア減少（リスク行動）
-        LifeManager.Instance.AddScore(-10);
-
-        // 例③：防御（シールド）
     }
 
     /// <summary>

@@ -83,6 +83,12 @@ public class LifeManager : MonoBehaviour
 
         // ライフ数値変更のアニメーション開始
         CountUpAnim();
+
+        // ゲームオーバーの処理
+        if(life <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     /// <summary>

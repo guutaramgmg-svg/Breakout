@@ -39,6 +39,22 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int m_Stage;
 
+    public void EnemyCountReset()
+    {
+        m_EnemyCount = 0;
+        m_EnemyMaxCount = 0;
+        UpdateEnemyCount();        
+    }
+
+    public bool CheckEnemyCount()
+    {
+        if(m_EnemyCount == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
     void Awake()
     {
         // すでに Instance が存在していたら自分を破棄
@@ -62,10 +78,9 @@ public class GameManager : MonoBehaviour
     public void GameStart(int stage)
     {
         m_Stage = stage;
-        m_EnemyCount = 0;
-        m_EnemyMaxCount = 0;
+        EnemyCountReset();
 
-        uiManager.GameStart();
+        uiManager.GameStart(stage);
         //ステージ生成開始
         StageController.Instance.GameStart(stage);
     }
@@ -110,7 +125,7 @@ public class GameManager : MonoBehaviour
         UpdateEnemyCount();
 
         // 全て壊されたらゲームクリア
-        if (m_EnemyCount == m_EnemyMaxCount)
+        if (m_EnemyCount >= m_EnemyMaxCount)
         {
             if(m_Stage == 2)
             {
@@ -120,8 +135,6 @@ public class GameManager : MonoBehaviour
             }
 
             // ネクストステージアニメーション
-            
-
             m_Stage++;
             GameStop();
             GameStart(m_Stage);
@@ -151,6 +164,21 @@ public class GameManager : MonoBehaviour
 
         // ゲームを一時停止
         Time.timeScale = 0f;
+    }
+
+    /// <summary>
+    /// ゲームオーバー時の処理
+    /// </summary>
+    public void GameOver()
+    {
+        uiManager.GameOver();
+
+        isGameOver = true;
+        // ボールの定期生成を停止
+        StopAllCoroutines();
+
+        // ゲームを一時停止
+        Time.timeScale = 0f;          
     }
 
     /// <summary>

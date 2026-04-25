@@ -40,6 +40,8 @@ public class StageController : MonoBehaviour
     }
     IEnumerator StageCreate(int stage)
     {
+        //スタート少し遅らせる
+        yield return new WaitForSeconds(1f);
         while (stageProgressTime < 200f)
         {
             sequencer[stage].Step(stageProgressTime);

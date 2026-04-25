@@ -112,11 +112,19 @@ public class GameManager : MonoBehaviour
         // 全て壊されたらゲームクリア
         if (m_EnemyCount == m_EnemyMaxCount)
         {
+            if(m_Stage == 2)
+            {
+                Debug.Log("クリア処理");
+                Invoke("GameClear", 1f);                
+                return;
+            }
+
+            // ネクストステージアニメーション
+            
 
             m_Stage++;
             GameStop();
             GameStart(m_Stage);
-//            Invoke("GameClear", 1f);
         }
     }
     public void GameStop()

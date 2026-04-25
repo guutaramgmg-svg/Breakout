@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject uiScore;         // ゲームスコア表示UI
     [SerializeField] GameObject uilifePoint;     // ライプポイント表示UI
 
+    // ステージ
+    [SerializeField] GameObject uiStage;         // ステージ
+
     [SerializeField] GameObject uiEnemyCount;    // エネミーの数表示UI
 
     [SerializeField] TextMeshProUGUI uiEnemyCountText;    //エネミーの数
@@ -39,7 +42,8 @@ public class UIManager : MonoBehaviour
         uiStageSelect.SetActive(false);
         uiScore.SetActive(true);
         uilifePoint.SetActive(true);
-        uiEnemyCount.SetActive(true);        
+        uiEnemyCount.SetActive(true);     
+        uiStage.SetActive(true);
     }
 
     /// <summary>

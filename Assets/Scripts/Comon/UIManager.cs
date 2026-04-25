@@ -55,6 +55,16 @@ public class UIManager : MonoBehaviour
         uiEnemyCount.SetActive(false);        
     }
 
+    public void GameStop()
+    {
+        uiGameOver.SetActive(false);
+        uiStageSelect.SetActive(false);
+        uiScore.SetActive(false);
+        uilifePoint.SetActive(false);   
+        uiEnemyCount.SetActive(false);        
+        
+    }
+
     public void UpdateEnemyCountText(int enemyCount,int enemyMax)
     {
         uiEnemyCountText.text = enemyCount + "/" + enemyMax;

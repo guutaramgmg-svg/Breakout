@@ -15,6 +15,8 @@ public class StageController : MonoBehaviour
 
     public int stageSelect = 0;
 
+    private Coroutine m_StageCreateCoroutine;
+
     private static StageController instance;
     public static StageController Instance { get => instance; }
 
@@ -33,7 +35,7 @@ public class StageController : MonoBehaviour
         sequencer[stage].Reset();
         stageProgressTime = 0;
 
-        StartCoroutine(StageCreate(stage));
+        m_StageCreateCoroutine = StartCoroutine(StageCreate(stage));
 
     }
     IEnumerator StageCreate(int stage)
@@ -47,4 +49,12 @@ public class StageController : MonoBehaviour
         }
     }
 
+    public void StopSageCreate()
+    {
+        if(m_StageCreateCoroutine != null)
+        {
+            StopCoroutine(m_StageCreateCoroutine);
+            m_StageCreateCoroutine = null;
+        }
+    }
 }

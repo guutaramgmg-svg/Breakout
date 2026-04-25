@@ -28,11 +28,16 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// エネミー総数
     /// </summary>
-    public int m_EnemyMaxCount;
+    private int m_EnemyMaxCount;
     /// <summary>
     /// 撃破エネミー数
     /// </summary>
-    public int m_EnemyCount;
+    private int m_EnemyCount;
+
+    /// <summary>
+    /// 現在のステージ
+    /// </summary>
+    private int m_Stage;
 
     void Awake()
     {
@@ -56,6 +61,10 @@ public class GameManager : MonoBehaviour
 
     public void GameStart(int stage)
     {
+        m_Stage = stage;
+        m_EnemyCount = 0;
+        m_EnemyMaxCount = 0;
+
         uiManager.GameStart();
         //ステージ生成開始
         StageController.Instance.GameStart(stage);
@@ -103,9 +112,20 @@ public class GameManager : MonoBehaviour
         // 全て壊されたらゲームクリア
         if (m_EnemyCount == m_EnemyMaxCount)
         {
-            Invoke("GameClear", 1f);
+
+            m_Stage++;
+            GameStop();
+            GameStart(m_Stage);
+//            Invoke("GameClear", 1f);
         }
     }
+    public void GameStop()
+    {
+        uiManager.GameStop();
+        StageController.Instance.StopSageCreate();
+    }
+
+
 
     /// <summary>
     /// ゲームクリア時の処理

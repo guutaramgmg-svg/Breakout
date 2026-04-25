@@ -1,6 +1,9 @@
-1,0,-1,HardEnemy
-2,0,0,HardEnemy
-3,1,0,HardEnemy
-3,-1,0,HardEnemy
-3,-3,0,HardEnemy
-
+1,0,-1,HE
+2,0,0,HE
+3,1,0,HE
+3,-1,0,HE
+3,-2,0,HE
+1,0.5,0,NE
+1,0,0,NE
+1,-0.5,0,NE
+1,0,0.5,NE

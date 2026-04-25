@@ -14,41 +14,49 @@ public class GameManager : MonoBehaviour
     // ===== プレハブ参照 =====
     [SerializeField] GameObject ball;          // ボールのプレハブ
 
-    // ===== UI =====
-    [SerializeField] GameObject uIStageSelect;     // ゲームスタート表示UI
-    [SerializeField] GameObject uIGameOver;     // ゲームクリア表示UI
-    [SerializeField] GameObject uIScore;         // ゲームスコア表示UI
-    [SerializeField] GameObject uIlifePoint;     // ライプポイント表示UI
-
     // ===== ボール生成間隔 =====
     [SerializeField] float interval = 5f;      // 何秒ごとにボールを出すか
 
     // ===== ゲーム状態管理 =====
     bool isGameOver = false;  // ゲームクリア済みかどうか
 
+    // UIクラス
+    [SerializeField] UIManager uiManager;
+
+    public static GameManager Instance;
+
+    /// <summary>
+    /// エネミー総数
+    /// </summary>
+    public int m_EnemyMaxCount;
+    /// <summary>
+    /// 撃破エネミー数
+    /// </summary>
+    public int m_EnemyCount;
+
+    void Awake()
+    {
+        // すでに Instance が存在していたら自分を破棄
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // 自分自身を Instance に登録
+        Instance = this;
+    }
+
     /// <summary>
     /// ゲーム開始時に一度だけ呼ばれる
     /// </summary>
     void Start()
     {
-        // ゲーム開始時はクリアUIを非表示
-        uIGameOver.SetActive(false);
-        uIStageSelect.SetActive(true);
-        uIScore.SetActive(false);
-        uIlifePoint.SetActive(false);
     }
-
 
     public void GameStart(int stage)
     {
-        uIStageSelect.SetActive(false);
-        uIScore.SetActive(true);
-        uIlifePoint.SetActive(true);
-        // 最初のボールを生成
-        // Instantiate(ball, new Vector2(0, -2), Quaternion.identity);
-        // 一定間隔でボールを出すコルーチン開始
-        // StartCoroutine(ShootRoutine());
-
+        uiManager.GameStart();
         //ステージ生成開始
         StageController.Instance.GameStart(stage);
     }
@@ -88,8 +96,12 @@ public class GameManager : MonoBehaviour
 
         // 残りブロック数を減らす
         ScoreManager.Instance.AddScore(33);
+
+        m_EnemyCount++;
+        UpdateEnemyCount();
+
         // 全て壊されたらゲームクリア
-        if (ScoreManager.Instance.score > 600)
+        if (m_EnemyCount == m_EnemyMaxCount)
         {
             Invoke("GameClear", 1f);
         }
@@ -100,9 +112,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void GameClear()
     {
-        // クリアUIを表示
-        uIGameOver.SetActive(true);
-
+        uiManager.GameClear();
         // クリア状態にする
         isGameOver = true;
 
@@ -127,4 +137,27 @@ public class GameManager : MonoBehaviour
         // シーンを再読み込み
         SceneManager.LoadScene(0);
     }
+
+    /// <summary>
+    /// エネミー総数のUI更新
+    /// </summary>
+    /// <param name="enemyMaxCount"></param>
+    public void UpdateEnemyMaxCount(int enemyMaxCount)
+    {
+        m_EnemyMaxCount = enemyMaxCount;        
+        UpdateEnemyCount();
+    }
+
+    /// <summary>
+    /// エネミー討伐数UI更新
+    /// </summary>
+    public void UpdateEnemyCount()
+    {
+        uiManager.UpdateEnemyCountText(m_EnemyCount,m_EnemyMaxCount);
+    }
+
+
+
+
+
 }

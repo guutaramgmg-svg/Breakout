@@ -63,8 +63,9 @@ public class StageSequencer : ScriptableObject
 
             );
         }
+        Debug.Log("ステージステップカウント：" + stagecsvdata.Count);
+        GameManager.Instance.UpdateEnemyMaxCount(stagecsvdata.Count);
         stageDatas = stagecsvdata.OrderBy(item => item.eventPos).ToArray();
-
     }
 
     public void Reset()

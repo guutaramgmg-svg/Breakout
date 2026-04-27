@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -102,11 +103,21 @@ public class PaddleController : MonoBehaviour
         }
     }
 
-    void OnTap()
+    public void BoolShot()
     {
          // ボール発射
-        Instantiate(ball, this.transform.position, Quaternion.identity);
-      
+        Instantiate(ball, this.transform.position, Quaternion.identity);        
+    }
+    public bool isShot;
+    [SerializeField] SpManager spManager;
+    void OnTap()
+    {
+        if (isShot)
+        {
+            BoolShot();  
+            spManager.Reset();
+            isShot = false;
+        }
     }
 
     void DetectSwipe(Vector2 swipe)
@@ -134,7 +145,7 @@ public class PaddleController : MonoBehaviour
     {
         Debug.Log("下フリック！");
         // ボール発射
-        Instantiate(ball, this.transform.position, Quaternion.identity);
+        //Instantiate(ball, this.transform.position, Quaternion.identity);
 
     }
 

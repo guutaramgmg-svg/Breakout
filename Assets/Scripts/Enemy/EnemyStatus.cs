@@ -70,7 +70,8 @@ public class EnemyStatus : MonoBehaviour
         // 自分自身を削除
         Destroy(gameObject);
         // GameManager にブロック破壊を通知
-        FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
+        //FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
+        GameManager.Instance.OnBlockDestroyed();
 
     }
 

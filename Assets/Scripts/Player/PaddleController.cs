@@ -28,6 +28,9 @@ public class PaddleController : MonoBehaviour
 
     private int hp = 3;
 
+    float pressStartTime;
+    [SerializeField] float tapThreshold = 0.15f;
+
 
     void Start()
     {
@@ -75,6 +78,8 @@ public class PaddleController : MonoBehaviour
         // 押した瞬間
         if (Pointer.current.press.wasPressedThisFrame)
         {
+            pressStartTime = Time.time;
+
             touchStartPos = Pointer.current.position.ReadValue();
             isSwiping = true;
         }
@@ -82,6 +87,12 @@ public class PaddleController : MonoBehaviour
         // 離した瞬間
         if (Pointer.current.press.wasReleasedThisFrame && isSwiping)
         {
+            float pressTime = Time.time - pressStartTime;
+            // 短いタップだけ
+            if(pressTime < tapThreshold)
+            {
+                OnTap();
+            }
             Vector2 endPos = Pointer.current.position.ReadValue();
             Vector2 swipe = endPos - touchStartPos;
 
@@ -90,6 +101,14 @@ public class PaddleController : MonoBehaviour
             isSwiping = false;
         }
     }
+
+    void OnTap()
+    {
+         // ボール発射
+        Instantiate(ball, this.transform.position, Quaternion.identity);
+      
+    }
+
     void DetectSwipe(Vector2 swipe)
     {
         // 短すぎる動きは無視

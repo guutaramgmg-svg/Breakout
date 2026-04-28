@@ -21,14 +21,13 @@ public class SpManager : MonoBehaviour
     
     void OnMax()
     {
-        paddleController.isShot = true;
-//        Debug.Log("アクション発動！");
-//        paddleController.BoolShot();        
+　　　　　//Debug.Log("アクション発動！");
+        paddleController.BoolShot();
+        Reset();
     }
-    public void Reset()
+    void Reset()
     {
         slider.value = 0f;
-        
     }
 
 

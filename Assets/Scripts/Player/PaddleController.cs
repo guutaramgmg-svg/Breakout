@@ -35,35 +35,36 @@ public class PaddleController : MonoBehaviour
 
     void Start()
     {
+        cam = Camera.main;
         // Rigidbody2D を取得
         rb = GetComponent<Rigidbody2D>();
         //ApplySlow(0.4f,3f);
     }
     void FixedUpdate()
     {
-        // マウス・タッチが使えない場合は処理しない
-        if (Pointer.current == null) return;
+        // // マウス・タッチが使えない場合は処理しない
+        // if (Pointer.current == null) return;
 
-        // 画面を押している間だけ追従
-        if (Pointer.current.press.isPressed)
-        {
-            // 画面座標 → ワールド座標に変換
-            Vector3 screenPos = Pointer.current.position.ReadValue();
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        // // 画面を押している間だけ追従
+        // if (Pointer.current.press.isPressed)
+        // {
+        //     // 画面座標 → ワールド座標に変換
+        //     Vector3 screenPos = Pointer.current.position.ReadValue();
+        //     Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
 
-            // 指（マウス）のX座標を移動範囲内に制限
-            float targetX = Mathf.Clamp(worldPos.x, minX, maxX);
+        //     // 指（マウス）のX座標を移動範囲内に制限
+        //     float targetX = Mathf.Clamp(worldPos.x, minX, maxX);
 
-            // 現在位置から目標位置へなめらかに移動
-            float newX = Mathf.MoveTowards(
-                rb.position.x,
-                targetX,
-                speed * speedMultiplier * Time.fixedDeltaTime
-            );
+        //     // 現在位置から目標位置へなめらかに移動
+        //     float newX = Mathf.MoveTowards(
+        //         rb.position.x,
+        //         targetX,
+        //         speed * speedMultiplier * Time.fixedDeltaTime
+        //     );
 
-            // Rigidbody2D を使って移動
-            rb.MovePosition(new Vector2(newX, rb.position.y));
-        }
+        //     // Rigidbody2D を使って移動
+        //     rb.MovePosition(new Vector2(newX, rb.position.y));
+        // }
     }
 
 
@@ -72,6 +73,13 @@ public class PaddleController : MonoBehaviour
 
     // フリック判定のしきい値
     float swipeThreshold = 50f;
+
+
+    float maxMoveSpeed = 20f;
+    [SerializeField] float deadZone = 10f;     // 中央の無効範囲
+    [SerializeField] float maxDistance = 20f; // 最大入力距離
+
+
     void Update()
     {
         if (Pointer.current == null) return;
@@ -82,7 +90,16 @@ public class PaddleController : MonoBehaviour
             pressStartTime = Time.time;
 
             touchStartPos = Pointer.current.position.ReadValue();
+               startPaddleX = rb.position.x; // ★これ追加
+
             isSwiping = true;
+        }
+
+        // 押してる間
+        if (Pointer.current.press.isPressed)
+        {
+HandleDragMove();
+
         }
 
         // 離した瞬間
@@ -90,7 +107,7 @@ public class PaddleController : MonoBehaviour
         {
             float pressTime = Time.time - pressStartTime;
             // 短いタップだけ
-            if(pressTime < tapThreshold)
+            if (pressTime < tapThreshold)
             {
                 OnTap();
             }
@@ -103,21 +120,41 @@ public class PaddleController : MonoBehaviour
         }
     }
 
+float startPaddleX;
+
+void HandleDragMove()
+{
+    Vector2 currentPos = Pointer.current.position.ReadValue();
+
+    // 👉 指の移動量（差分）
+    float deltaX = currentPos.x - touchStartPos.x;
+
+    // 👉 スクリーン → ワールド変換
+    float worldDelta = deltaX * 0.01f; // ← 感度調整ポイント
+
+    float targetX = startPaddleX + worldDelta;
+
+    // 範囲制限
+    targetX = Mathf.Clamp(targetX, minX, maxX);
+
+    rb.MovePosition(new Vector2(targetX, rb.position.y));
+}
+
+Camera cam;
+float velocity = 0f;
+
+[SerializeField] float smoothTime = 0.08f;
+
+
     public void BoolShot()
     {
-         // ボール発射
-        Instantiate(ball, this.transform.position, Quaternion.identity);        
+        // ボール発射
+        Instantiate(ball, this.transform.position, Quaternion.identity);
     }
-    public bool isShot;
+
     [SerializeField] SpManager spManager;
     void OnTap()
     {
-        if (isShot)
-        {
-            BoolShot();  
-            spManager.Reset();
-            isShot = false;
-        }
     }
 
     void DetectSwipe(Vector2 swipe)

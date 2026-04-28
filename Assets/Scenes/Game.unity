@@ -1374,6 +1374,10 @@ MonoBehaviour:
   ball: {fileID: 7270390603034735424, guid: f488e12e5dfcf4c88810043504adc3cd, type: 3}
   speed: 10
   tapThreshold: 0.15
+  maxMoveSpeed: 200
+  deadZone: 10
+  maxDistance: 100
+  spManager: {fileID: 796812118}
 --- !u!1 &355296107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -700, y: -1322}
+  m_SizeDelta: {x: -700, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &796812118
 MonoBehaviour:
@@ -2524,7 +2528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpManager
   slider: {fileID: 1487724499}
-  increaseSpeed: 0.1
+  increaseSpeed: 0.2
   paddleController: {fileID: 322874494}
 --- !u!1 &967131396
 GameObject:
@@ -3295,8 +3299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1337845220
 GameObject:
@@ -3568,9 +3572,9 @@ RectTransform:
   - {fileID: 1290842076}
   m_Father: {fileID: 796812117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487724499
@@ -3620,7 +3624,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

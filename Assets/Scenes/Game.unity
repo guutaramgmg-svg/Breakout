@@ -1372,12 +1372,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPaddleController
   ball: {fileID: 7270390603034735424, guid: f488e12e5dfcf4c88810043504adc3cd, type: 3}
+  attack: {fileID: 3727432706503383275, guid: 425045d10bdb641d6826e812fc30f44c, type: 3}
+  buster: {fileID: 3456413622067581254, guid: 0a202944bea604c7f9e4fdadb57be2fd, type: 3}
   speed: 10
   tapThreshold: 0.15
-  maxMoveSpeed: 200
   deadZone: 10
   maxDistance: 100
+  smoothTime: 0.08
   spManager: {fileID: 796812118}
+  isCatch: 0
 --- !u!1 &355296107
 GameObject:
   m_ObjectHideFlags: 0

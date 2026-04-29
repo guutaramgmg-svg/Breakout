@@ -10,8 +10,14 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PaddleController : MonoBehaviour
 {
-    // ボール
-    [SerializeField] GameObject ball;          // ボールのプレハブ
+    // ボール プレハブ
+    [SerializeField] GameObject ball;
+
+    // アクション　プレハブ
+    [SerializeField] GameObject attack;
+
+    // バスター　プレハブ
+    [SerializeField] GameObject buster;
 
     // パドルの基本移動速度
     public float speed = 10f;
@@ -31,6 +37,7 @@ public class PaddleController : MonoBehaviour
 
     float pressStartTime;
     [SerializeField] float tapThreshold = 0.15f;
+
 
 
     void Start()
@@ -73,8 +80,6 @@ public class PaddleController : MonoBehaviour
 
     // フリック判定のしきい値
     float swipeThreshold = 50f;
-
-
     float maxMoveSpeed = 20f;
     [SerializeField] float deadZone = 10f;     // 中央の無効範囲
     [SerializeField] float maxDistance = 20f; // 最大入力距離
@@ -90,7 +95,7 @@ public class PaddleController : MonoBehaviour
             pressStartTime = Time.time;
 
             touchStartPos = Pointer.current.position.ReadValue();
-               startPaddleX = rb.position.x; // ★これ追加
+            startPaddleX = rb.position.x; // ★これ追加
 
             isSwiping = true;
         }
@@ -98,8 +103,7 @@ public class PaddleController : MonoBehaviour
         // 押してる間
         if (Pointer.current.press.isPressed)
         {
-HandleDragMove();
-
+            HandleDragMove();
         }
 
         // 離した瞬間
@@ -120,30 +124,30 @@ HandleDragMove();
         }
     }
 
-float startPaddleX;
+    float startPaddleX;
 
-void HandleDragMove()
-{
-    Vector2 currentPos = Pointer.current.position.ReadValue();
+    void HandleDragMove()
+    {
+        Vector2 currentPos = Pointer.current.position.ReadValue();
 
-    // 👉 指の移動量（差分）
-    float deltaX = currentPos.x - touchStartPos.x;
+        // 指の移動量（差分）
+        float deltaX = currentPos.x - touchStartPos.x;
 
-    // 👉 スクリーン → ワールド変換
-    float worldDelta = deltaX * 0.01f; // ← 感度調整ポイント
+        // スクリーン → ワールド変換
+        float worldDelta = deltaX * 0.01f; // ← 感度調整ポイント
 
-    float targetX = startPaddleX + worldDelta;
+        float targetX = startPaddleX + worldDelta;
 
-    // 範囲制限
-    targetX = Mathf.Clamp(targetX, minX, maxX);
+        // 範囲制限
+        targetX = Mathf.Clamp(targetX, minX, maxX);
 
-    rb.MovePosition(new Vector2(targetX, rb.position.y));
-}
+        rb.MovePosition(new Vector2(targetX, rb.position.y));
+    }
 
-Camera cam;
-float velocity = 0f;
+    Camera cam;
+    float velocity = 0f;
 
-[SerializeField] float smoothTime = 0.08f;
+    [SerializeField] float smoothTime = 0.08f;
 
 
     public void BoolShot()
@@ -176,14 +180,28 @@ float velocity = 0f;
     void OnSwipeUp()
     {
         Debug.Log("上フリック！");
+//            GameObject obj = Instantiate(buster, this.transform.position, Quaternion.identity);
+//            Destroy(obj,2f); //2秒後に消す                         
 
     }
+    public bool isCatch;
     void OnSwipeDown()
     {
         Debug.Log("下フリック！");
-        // ボール発射
-        //Instantiate(ball, this.transform.position, Quaternion.identity);
 
+        if (isCatch)
+        {
+            //バスター
+            GameObject obj = Instantiate(buster, this.transform.position, Quaternion.identity);
+            Destroy(obj,2f); //2秒後に消す                         
+            isCatch = false;
+        }
+        else
+        {
+            // アタック
+            GameObject obj = Instantiate(attack, this.transform.position, Quaternion.identity);
+            Destroy(obj,0.5f); //0.5秒後に消す             
+        }
     }
 
     /// <summary>

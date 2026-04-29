@@ -54,4 +54,13 @@ public class DamageBallController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // ダメージボールをキャッチしたら
+        if (collision.gameObject.CompareTag("Attack"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }

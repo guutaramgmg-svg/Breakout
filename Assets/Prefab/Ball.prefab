@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4340515322900643744}
   - component: {fileID: 8608551794383097434}
   - component: {fileID: 7915237842285240934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -173,6 +173,9 @@ MonoBehaviour:
   speed: 5
   maxBounceCount: 3
   spreadCount: 2
+  lifeTimeWithoutPaddle: 5
+  blinkStartTime: 1.5
+  blinkSpeed: 10
 --- !u!96 &7915237842285240934
 TrailRenderer:
   serializedVersion: 4

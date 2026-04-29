@@ -39,12 +39,31 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("衝突した: " + collision.gameObject.name);
         // ボール以外との衝突は無視
-        if (!collision.gameObject.CompareTag("Ball")) return;
-
+        if (collision.gameObject.CompareTag("Ball"))
+        {
         // ダメージ処理
-        TakeDamage();
+        TakeDamage();            
+        }
+        if (collision.gameObject.CompareTag("Buster"))
+        {
+            Debug.Log("バスター当たった");
+        OnBreak();            
+        }
+
     }
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("Buster"))
+    {
+        Debug.Log("バスター当たった");
+        OnBreak();
+    }
+}
+
 
     /// <summary>
     /// ダメージを受けた時の処理

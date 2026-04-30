@@ -15,4 +15,5 @@ public class BusterController : MonoBehaviour
     {
      this.transform.position = paddleController.transform.position;
     }
+
 }

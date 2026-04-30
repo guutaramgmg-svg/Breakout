@@ -29,18 +29,31 @@ public class EnemyStatus : MonoBehaviour
         // 初期HPに応じた色を設定
         UpdateColor();
     }
-
-    /// <summary>
+        /// <summary>
     /// 他のオブジェクトと衝突した時に呼ばれる
     /// </summary>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("衝突した: " + collision.gameObject.name);
         // ボール以外との衝突は無視
-        if (!collision.gameObject.CompareTag("Ball")) return;
-
+        if (collision.gameObject.CompareTag("Ball"))
+        {
         // ダメージ処理
-        TakeDamage();
+        TakeDamage();            
+        }
     }
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Buster"))
+        {
+        Debug.Log("Trigerバスター当たった");
+        // ダメージ処理
+        TakeDamage();            
+        }
+    }
+
 
     /// <summary>
     /// ダメージを受けた時の処理

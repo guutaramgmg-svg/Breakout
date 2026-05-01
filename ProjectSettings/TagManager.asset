@@ -10,6 +10,7 @@ TagManager:
   - Damage
   - Attack
   - Buster
+  - Enemy
   layers:
   - Default
   - TransparentFX

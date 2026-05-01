@@ -29,7 +29,35 @@ public class EnemyStatus : MonoBehaviour
         // 初期HPに応じた色を設定
         UpdateColor();
     }
-        /// <summary>
+
+
+    float invincibleTime = 0.5f;
+    float timer = 0f;
+    bool isInvincible = false;
+
+    void Update()
+    {
+        // 一定時間無敵
+        if (isInvincible)
+        {
+            timer += Time.deltaTime;
+            if (timer >= invincibleTime)
+            {
+                isInvincible = false;
+                timer = 0f;
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Buster"))
+        {
+            TakeDamage();
+        }
+    }
+
+    /// <summary>
     /// 他のオブジェクトと衝突した時に呼ばれる
     /// </summary>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -60,6 +88,8 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     protected virtual void TakeDamage()
     {
+        if (isInvincible) return;
+        isInvincible = true;
         // HPを減らす
         hp--;
 

@@ -86,7 +86,7 @@ public class EnemyStatus : MonoBehaviour
     /// <summary>
     /// ダメージを受けた時の処理
     /// </summary>
-    protected virtual void TakeDamage()
+    public virtual void TakeDamage()
     {
         if (isInvincible) return;
         isInvincible = true;

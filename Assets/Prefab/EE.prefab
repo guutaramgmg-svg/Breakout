@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5742637167778455028}
   - component: {fileID: 5421546320180491732}
   m_Layer: 0
-  m_Name: Body
+  m_Name: EBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   blockType: 2
-  hp: 1
 --- !u!95 &8557708720060387911
 Animator:
   serializedVersion: 7

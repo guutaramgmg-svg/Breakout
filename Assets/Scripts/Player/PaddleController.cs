@@ -203,7 +203,7 @@ public class PaddleController : MonoBehaviour
     /// </summary>
     public void BoolShot()
     {
-        Instantiate(ball, this.transform.position, Quaternion.identity);
+     //   Instantiate(ball, this.transform.position, Quaternion.identity);
     }
     
     // タップ時
@@ -237,7 +237,7 @@ public class PaddleController : MonoBehaviour
     /// </summary>
     void OnSwipeUp()
     {
-        Debug.Log("上フリック！");
+        //Debug.Log("上フリック！");
              //GameObject obj = Instantiate(buster, this.transform.position, Quaternion.identity);
              //Destroy(obj,2f); //2秒後に消す                         
     }
@@ -247,7 +247,7 @@ public class PaddleController : MonoBehaviour
     /// </summary>
     void OnSwipeDown()
     {
-        Debug.Log("下フリック！");
+        //Debug.Log("下フリック！");
 
         if (isCatch)
         {

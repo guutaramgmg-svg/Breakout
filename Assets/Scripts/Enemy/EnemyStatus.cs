@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
@@ -66,22 +67,10 @@ public class EnemyStatus : MonoBehaviour
         // ボール以外との衝突は無視
         if (collision.gameObject.CompareTag("Ball"))
         {
-        // ダメージ処理
-        TakeDamage();            
+            // ダメージ処理
+            TakeDamage();            
         }
     }
-
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Buster"))
-        {
-        Debug.Log("Trigerバスター当たった");
-        // ダメージ処理
-//s        TakeDamage();            
-        }
-    }
-
 
     /// <summary>
     /// ダメージを受けた時の処理

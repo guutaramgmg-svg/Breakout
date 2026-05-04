@@ -27,11 +27,7 @@ public class BusterStatus : MonoBehaviour
             return;  
         } 
 
-        Debug.Log("Stay呼ばれている");
-
         if (!collision.CompareTag("Enemy")) return;
-
-        Debug.Log("Enemyと接触中");
 
         Collider2D bottomEnemy = null;
         float lowestY = float.MaxValue;
@@ -118,13 +114,7 @@ public class BusterStatus : MonoBehaviour
         view.transform.localScale = new Vector3(viewScale.x,viewScale.y,viewScale.z);
         
         line.transform.position = new Vector3(linePos.x,1 ,linePos.z);
-        line.transform.localScale = new Vector3(lineScale.x,10,lineScale.z);
-        
-        // view.transform.position = new Vector3(0,0,0);
-        // view.transform.localScale = new Vector3(0.5f,0.2f,1);
-
-        // line.transform.position = new Vector3(0,0,0);
-        // line.transform.localScale = new Vector3(0.2f,10,1);        
+        line.transform.localScale = new Vector3(lineScale.x,10,lineScale.z);    
 
     }
 

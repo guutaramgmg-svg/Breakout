@@ -5,6 +5,7 @@ using UnityEngine;
 public class BusterStatus : MonoBehaviour
 {
     [SerializeField] GameObject view;
+    [SerializeField] GameObject line;
 
     [SerializeField] List<Collider2D> EnemyList;
     //
@@ -35,6 +36,12 @@ public class BusterStatus : MonoBehaviour
         if (bottomEnemy != null)
         {
             Debug.Log("ダメージを与える");
+            
+            // エネミーの位置
+            Vector3 pos = view.transform.position;
+            pos.y = bottomEnemy.transform.position.y;
+            view.transform.position = pos;
+
             bottomEnemy.GetComponent<EnemyStatus>().TakeDamage();
         }
     }
@@ -45,7 +52,6 @@ public class BusterStatus : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("バスターEnemy");
-            view.transform.position = collision.transform.position;
             EnemyList.Add(collision);
         }
     }

@@ -53,7 +53,7 @@ public class EnemyStatus : MonoBehaviour
     {
         if (collision.CompareTag("Buster"))
         {
-            TakeDamage();
+//            TakeDamage();
         }
     }
 
@@ -78,7 +78,7 @@ public class EnemyStatus : MonoBehaviour
         {
         Debug.Log("Trigerバスター当たった");
         // ダメージ処理
-        TakeDamage();            
+//s        TakeDamage();            
         }
     }
 

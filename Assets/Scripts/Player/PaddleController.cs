@@ -1,5 +1,4 @@
 using System.Collections;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,43 +9,87 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PaddleController : MonoBehaviour
 {
-    // ボール プレハブ
+    #region プロパティ
+    #region プレハブ
+    [Tooltip("ボールのプレハブ")]
     [SerializeField] GameObject ball;
 
-    // アクション　プレハブ
+    [Tooltip("キャッチアクション")]
     [SerializeField] GameObject attack;
 
-    // バスター　プレハブ
+    [Tooltip("特殊攻撃バスター")]
     [SerializeField] GameObject buster;
+    #endregion
 
-    // パドルの基本移動速度
+    #region 移動関連
+    // パドルの基本移動速度（未使用：旧ロジック用）
     public float speed = 10f;
-
-    // Rigidbody2D（物理移動用）
+    // Rigidbody2D（物理移動に使用）
     Rigidbody2D rb;
-
     // パドルが動ける左右の限界座標
     float minX = -2.2f;
     float maxX = 2.2f;
-
-    // 状態異常用の速度倍率
-    // 1.0 = 通常速度 / 0.5 = 半分の速さ
+    // 状態異常による速度倍率
+    // 1.0 = 通常 / 0.5 = 半減
     float speedMultiplier = 1f;
+    #endregion
 
+    #region ステータス
+
+    // プレイヤーのHP
     private int hp = 3;
 
+    [Tooltip("キャッチ状況(trueの時下フリックで強化攻撃)")]
+    public bool isCatch;
+
+    #endregion
+
+    #region タッチ制御
+
+    // タッチ開始位置（スワイプ計算用）
+    Vector2 touchStartPos;
+
+    // スワイプ中かどうか
+    bool isSwiping = false;
+
+    // フリックとして判定する最小移動距離
+    float swipeThreshold = 50f;
+
+    // 押し始めた時間（タップ判定用）
     float pressStartTime;
+
+    [Tooltip("タップとして認識する最大時間")]
     [SerializeField] float tapThreshold = 0.15f;
 
+    #endregion
 
+    #region パドル位置制御
+    // ドラッグ開始時のパドルのX座標
+    float startPaddleX;
 
+    #endregion
+
+    #region 参照
+    // メインカメラ
+    Camera cam;
+    #endregion
+
+    #endregion
+
+    #region ライフサイクル
+    /// <summary>
+    /// 初期化
+    /// </summary>
     void Start()
     {
         cam = Camera.main;
-        // Rigidbody2D を取得
         rb = GetComponent<Rigidbody2D>();
         //ApplySlow(0.4f,3f);
     }
+
+    /// <summary>
+    /// 物理
+    /// </summary>
     void FixedUpdate()
     {
         // // マウス・タッチが使えない場合は処理しない
@@ -73,18 +116,10 @@ public class PaddleController : MonoBehaviour
         //     rb.MovePosition(new Vector2(newX, rb.position.y));
         // }
     }
-
-
-    Vector2 touchStartPos;
-    bool isSwiping = false;
-
-    // フリック判定のしきい値
-    float swipeThreshold = 50f;
-    float maxMoveSpeed = 20f;
-    [SerializeField] float deadZone = 10f;     // 中央の無効範囲
-    [SerializeField] float maxDistance = 20f; // 最大入力距離
-
-
+    
+    /// <summary>
+    /// 更新
+    /// </summary>
     void Update()
     {
         if (Pointer.current == null) return;
@@ -124,43 +159,62 @@ public class PaddleController : MonoBehaviour
         }
     }
 
-    float startPaddleX;
+    /// <summary>
+    /// 当たり判定
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // ダメージボール受けたら
+        if (collision.gameObject.CompareTag("Damage"))
+        {
+            hp--;
+            LifeManager.Instance.AddScore(-15);
 
+            Debug.Log("HP:" + hp);
+        }
+    }
+
+    #endregion
+
+    #region メソッド
+    /// <summary>
+    /// タップ長押しに合わせてパドルを動かす機能
+    /// </summary>
     void HandleDragMove()
     {
+        // 現在のタッチ座標を取得
         Vector2 currentPos = Pointer.current.position.ReadValue();
 
         // 指の移動量（差分）
         float deltaX = currentPos.x - touchStartPos.x;
 
         // スクリーン → ワールド変換
-        float worldDelta = deltaX * 0.01f; // ← 感度調整ポイント
-
+        float worldDelta = deltaX * 0.01f;
         float targetX = startPaddleX + worldDelta;
 
         // 範囲制限
         targetX = Mathf.Clamp(targetX, minX, maxX);
-
         rb.MovePosition(new Vector2(targetX, rb.position.y));
     }
 
-    Camera cam;
-    float velocity = 0f;
-
-    [SerializeField] float smoothTime = 0.08f;
-
-
+    /// <summary>
+    /// ボールの発射
+    /// </summary>
     public void BoolShot()
     {
-        // ボール発射
-        Instantiate(ball, this.transform.position, Quaternion.identity);
+        //Instantiate(ball, this.transform.position, Quaternion.identity);
     }
-
-    [SerializeField] SpManager spManager;
+    
+    // タップ時
     void OnTap()
     {
     }
 
+    /// <summary>
+    /// スワイプ方向を判定して、対応する処理を実行する
+    /// </summary>
+    /// <param name="swipe">タッチ開始位置から終了位置までの差分ベクトル</param>
     void DetectSwipe(Vector2 swipe)
     {
         // 短すぎる動きは無視
@@ -177,14 +231,20 @@ public class PaddleController : MonoBehaviour
             OnSwipeDown();
         }
     }
+
+    /// <summary>
+    /// 上フリック
+    /// </summary>
     void OnSwipeUp()
     {
         Debug.Log("上フリック！");
              GameObject obj = Instantiate(buster, this.transform.position, Quaternion.identity);
-             Destroy(obj,2f); //2秒後に消す                         
-
+             //Destroy(obj,2f); //2秒後に消す                         
     }
-    public bool isCatch;
+
+    /// <summary>
+    /// 下フリック
+    /// </summary>
     void OnSwipeDown()
     {
         Debug.Log("下フリック！");
@@ -231,15 +291,5 @@ public class PaddleController : MonoBehaviour
         speedMultiplier = 1f;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        // ダメージボール受けたら
-        if (collision.gameObject.CompareTag("Damage"))
-        {
-            hp--;
-            LifeManager.Instance.AddScore(-15);
-
-            Debug.Log("HP:" + hp);
-        }
-    }
+    #endregion 
 }

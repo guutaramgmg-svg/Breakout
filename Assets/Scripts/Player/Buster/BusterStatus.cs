@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BusterStatus : MonoBehaviour
 {
-float damageInterval = 0.2f;
-float timer = 0f;
+
+
 
 // void OnTriggerStay2D(Collider2D collision)
 // {

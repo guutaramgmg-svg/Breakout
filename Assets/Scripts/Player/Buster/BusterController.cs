@@ -8,6 +8,8 @@ public class BusterController : MonoBehaviour
     void Start()
     {
         paddleController = FindAnyObjectByType<PaddleController>();
+        
+
     }
 
     // Update is called once per frame

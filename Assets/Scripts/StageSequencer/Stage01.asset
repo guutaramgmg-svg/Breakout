@@ -15,5 +15,8 @@ MonoBehaviour:
   filename: Stage01
   enemyPrefabs:
   - {fileID: 394922523093828193, guid: 79865806c356345f1bf707a954e6ef40, type: 3}
+  - {fileID: 394922523093828193, guid: 155ef12187e61436f8ddd854143e39d9, type: 3}
+  - {fileID: 394922523093828193, guid: 4fa9fa325e3174b53936be46e189052e, type: 3}
   - {fileID: 6401881686383593756, guid: 2e3b5d4d241544286b3b206598d402e3, type: 3}
   - {fileID: 778932107251064216, guid: 7e16fd2eb0f0548e3a9b3066ba231d19, type: 3}
+  - {fileID: 778932107251064216, guid: 28cfe6a3fb14c4eedbc3126a53d13722, type: 3}

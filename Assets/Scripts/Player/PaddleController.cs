@@ -203,7 +203,7 @@ public class PaddleController : MonoBehaviour
     /// </summary>
     public void BoolShot()
     {
-     //   Instantiate(ball, this.transform.position, Quaternion.identity);
+        Instantiate(ball, this.transform.position, Quaternion.identity);
     }
     
     // タップ時

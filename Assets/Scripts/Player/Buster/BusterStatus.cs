@@ -75,7 +75,7 @@ public class BusterStatus : MonoBehaviour
             line.transform.localScale = scale;
 
             // ダメージ
-            bottomEnemy.GetComponent<EnemyStatus>().TakeDamage();
+            bottomEnemy.GetComponent<EnemyStatus>().TakeDamageBuster();
         }
     }
 

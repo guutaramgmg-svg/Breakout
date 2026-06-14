@@ -68,14 +68,33 @@ public class EnemyStatus : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             // ダメージ処理
-            TakeDamage();            
+            TakeDamageBall();            
+        }
+    }
+
+
+    /// <summary>
+    /// ダメージを受けた時の処理
+    /// </summary>
+    public virtual void TakeDamageBall()
+    {
+        // HPを減らす
+        hp--;
+
+        // HPに応じて色を更新
+        UpdateColor();
+
+        // HPが0以下なら破壊
+        if (hp <= 0)
+        {
+            OnBreak();
         }
     }
 
     /// <summary>
     /// ダメージを受けた時の処理
     /// </summary>
-    public virtual void TakeDamage()
+    public virtual void TakeDamageBuster()
     {
         if (isInvincible) return;
         isInvincible = true;
@@ -100,7 +119,7 @@ public class EnemyStatus : MonoBehaviour
     {
 
         // 自分自身を削除
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
         // GameManager にブロック破壊を通知
         //FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
         GameManager.Instance.OnBlockDestroyed();

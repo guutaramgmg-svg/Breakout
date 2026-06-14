@@ -32,7 +32,7 @@ public class AttackController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("近距離アタック成功");
-            collision.GetComponent<EnemyStatus>().TakeDamage();
+            collision.GetComponent<EnemyStatus>().TakeDamageBuster();
         }
     }
 

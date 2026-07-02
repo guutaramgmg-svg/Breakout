@@ -1,5 +1,9 @@
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using System.Collections;
+
 
 public class EnemyStatus : MonoBehaviour
 {
@@ -9,8 +13,13 @@ public class EnemyStatus : MonoBehaviour
     // ブロックの耐久値（ヒットポイント）
     [SerializeField] protected int hp = 1;
 
+    private Animator animator;
+    
     // 見た目変更用の SpriteRenderer
     protected SpriteRenderer sr;
+
+    // 点滅処理
+    private bool isBlinking = false;
 
     /// <summary>
     /// オブジェクト生成時に最初に呼ばれる
@@ -27,6 +36,7 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+        animator = this.GetComponent<Animator>();
         // 初期HPに応じた色を設定
         UpdateColor();
     }
@@ -79,7 +89,7 @@ public class EnemyStatus : MonoBehaviour
     public virtual void TakeDamageBall()
     {
         // HPを減らす
-        hp--;
+        TakeDamage(1);
 
         // HPに応じて色を更新
         UpdateColor();
@@ -99,10 +109,7 @@ public class EnemyStatus : MonoBehaviour
         if (isInvincible) return;
         isInvincible = true;
         // HPを減らす
-        hp--;
-
-        // HPに応じて色を更新
-        UpdateColor();
+        TakeDamage(1);
 
         // HPが0以下なら破壊
         if (hp <= 0)
@@ -111,19 +118,48 @@ public class EnemyStatus : MonoBehaviour
         }
     }
 
+    protected virtual void TakeDamage(int dameage)
+    {   
+        animator.SetTrigger("Hit");
+        hp = hp - dameage;
+        StartCoroutine(Blink());
+    }
+
+    // 点滅処理
+    private IEnumerator Blink()
+    {
+        if (isBlinking) yield break;
+ 
+        isBlinking = true;
+        for (int i = 0; i < 5; i++)
+        {
+            sr.enabled = !sr.enabled;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        sr.enabled = true;
+        isBlinking = false;
+    }
+
+
+
     /// <summary>
     /// ブロックが壊れた時の処理
     /// （派生クラスで拡張可能）
     /// </summary>
     protected virtual void OnBreak()
     {
+        animator.SetTrigger("Death");        
+    }
 
+    public void OnDestroyEnd()
+    {
         // 自分自身を削除
         Destroy(transform.parent.gameObject);
         // GameManager にブロック破壊を通知
         //FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
         GameManager.Instance.OnBlockDestroyed();
-
+        
     }
 
     /// <summary>
@@ -133,7 +169,25 @@ public class EnemyStatus : MonoBehaviour
     protected virtual void UpdateColor()
     {
         // デフォルト色（通常ブロック用）
-        sr.color = Color.white;
+//        sr.color = Color.white;
+        switch (hp)
+        {
+            case 3:
+                sr.color = Color.white;
+                break;
+
+            case 2:
+                sr.color = new Color(1f, 0.8f, 0.8f);
+                break;
+
+            case 1:
+                sr.color = new Color(1f, 0.5f, 0.5f);
+                break;
+
+            default:
+                sr.color = Color.red;
+                break;
+        }
     }
 
 }

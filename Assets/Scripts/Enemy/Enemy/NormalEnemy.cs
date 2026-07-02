@@ -3,7 +3,7 @@ public class NormalEnemy : EnemyStatus
 {
     protected override void Start()
     {
-        hp = 1;
+        hp = 3;
         base.Start();
     }
 

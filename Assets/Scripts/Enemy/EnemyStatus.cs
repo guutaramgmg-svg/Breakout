@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Collections;
 
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class EnemyStatus : MonoBehaviour
 {
     // このブロックの種類
@@ -13,13 +15,20 @@ public class EnemyStatus : MonoBehaviour
     // ブロックの耐久値（ヒットポイント）
     [SerializeField] protected int hp = 1;
 
-    private Animator animator;
-    
+    #region アニメーション
+    private Animator animator;    
+    private static readonly int HitHash = Animator.StringToHash("Hit");
+    private static readonly int DeathHash = Animator.StringToHash("Death");
+
+    #endregion
+
     // 見た目変更用の SpriteRenderer
     protected SpriteRenderer sr;
 
     // 点滅処理
     private bool isBlinking = false;
+
+    private bool isDead = false;
 
     /// <summary>
     /// オブジェクト生成時に最初に呼ばれる
@@ -27,8 +36,10 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        // SpriteRenderer を取得
+        // SpriteRendererを取得
         sr = GetComponent<SpriteRenderer>();
+        // Animatorを取得
+        animator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -36,7 +47,6 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        animator = this.GetComponent<Animator>();
         // 初期HPに応じた色を設定
         UpdateColor();
     }
@@ -88,11 +98,10 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     public virtual void TakeDamageBall()
     {
+        if (isDead) return;
+
         // HPを減らす
         TakeDamage(1);
-
-        // HPに応じて色を更新
-        UpdateColor();
 
         // HPが0以下なら破壊
         if (hp <= 0)
@@ -106,6 +115,8 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     public virtual void TakeDamageBuster()
     {
+        if (isDead) return;
+
         if (isInvincible) return;
         isInvincible = true;
         // HPを減らす
@@ -118,11 +129,19 @@ public class EnemyStatus : MonoBehaviour
         }
     }
 
-    protected virtual void TakeDamage(int dameage)
+    // ダメージ処理
+    protected virtual void TakeDamage(int damage)
     {   
-        animator.SetTrigger("Hit");
-        hp = hp - dameage;
+        hp = Mathf.Max(0, hp - damage);
+        animator.SetTrigger(HitHash);
+        // 点滅の演出
         StartCoroutine(Blink());
+        
+        if(hp > 0)
+        {
+            // HPに応じて色を更新
+            UpdateColor();            
+        }
     }
 
     // 点滅処理
@@ -149,15 +168,52 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     protected virtual void OnBreak()
     {
-        animator.SetTrigger("Death");        
+        if (isDead) return;
+
+        isDead = true;
+        // ブレイクアニメーション
+        //animator.SetTrigger(DeathHash);
+        StartCoroutine(BreakEffect());
     }
 
+    /// <summary>
+    ///  ブレイク演出
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator BreakEffect()
+    {
+        // 現在の大きさ保持
+        Vector3 start = transform.localScale;
+        // 最終拡大サイズ
+        Vector3 end = start * 5f;
+
+        // 演出時間
+        float t = 0f;        
+        const float duration = 0.1f;
+        
+        // 徐々に拡大
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            // 拡大率を補間
+            transform.localScale = Vector3.Lerp(start, end, t / duration);
+            yield return null;
+        }
+        // 最後の大きさを取得
+        transform.localScale = end;
+ 
+        // 死亡アニメーション再生
+        animator.SetTrigger(DeathHash);
+    }
+
+    /// <summary>
+    /// 自分自身の削除処理
+    /// </summary>
     public void OnDestroyEnd()
     {
         // 自分自身を削除
         Destroy(transform.parent.gameObject);
         // GameManager にブロック破壊を通知
-        //FindFirstObjectByType<GameManager>()?.OnBlockDestroyed();
         GameManager.Instance.OnBlockDestroyed();
         
     }
@@ -169,7 +225,7 @@ public class EnemyStatus : MonoBehaviour
     protected virtual void UpdateColor()
     {
         // デフォルト色（通常ブロック用）
-//        sr.color = Color.white;
+        sr.color = Color.white;
         switch (hp)
         {
             case 3:
@@ -183,9 +239,8 @@ public class EnemyStatus : MonoBehaviour
             case 1:
                 sr.color = new Color(1f, 0.5f, 0.5f);
                 break;
-
             default:
-                sr.color = Color.red;
+                sr.color = Color.white;
                 break;
         }
     }

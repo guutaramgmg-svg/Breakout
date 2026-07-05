@@ -154,8 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NormalEnemy
   blockType: 0
-  hp: 1
-  animator: {fileID: 5122803354326313788}
+  hp: 0
 --- !u!95 &5122803354326313788
 Animator:
   serializedVersion: 7

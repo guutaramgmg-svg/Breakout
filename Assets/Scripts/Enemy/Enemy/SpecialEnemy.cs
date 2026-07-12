@@ -9,7 +9,7 @@ public class SpecialEnemy : EnemyStatus
 
     protected override void Start()
     {
-        hp = 2;
+        Hp = 2;
         base.Start();
         StartCoroutine("ShootRoutine");
 
@@ -32,9 +32,9 @@ public class SpecialEnemy : EnemyStatus
     protected override void UpdateColor()
     {
         sr.color =
-            hp == 4 ? new Color(0.5f, 0f, 1f) : // 紫
-            hp == 3 ? Color.blue :
-            hp == 2 ? Color.yellow :
+            Hp == 4 ? new Color(0.5f, 0f, 1f) : // 紫
+            Hp == 3 ? Color.blue :
+            Hp == 2 ? Color.yellow :
                       Color.red;
     }
 

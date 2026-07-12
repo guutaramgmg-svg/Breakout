@@ -12,8 +12,17 @@ public class EnemyStatus : MonoBehaviour
     // このブロックの種類
     public EnemyType blockType;
 
-    // ブロックの耐久値（ヒットポイント）
-    [SerializeField] protected int hp = 1;
+    // エネミー耐久値（ヒットポイント）
+    public int Hp
+    {
+        get => enemyController.Hp;
+        set => enemyController.Hp = value;
+    }
+
+    // 死亡時最終サイズ
+    private float deathEndScale = 1.5f;
+    public EnemyController enemyController;
+
 
     #region アニメーション
     private Animator animator;    
@@ -28,6 +37,7 @@ public class EnemyStatus : MonoBehaviour
     // 点滅処理
     private bool isBlinking = false;
 
+    // 死亡フラグ
     private bool isDead = false;
 
     /// <summary>
@@ -38,6 +48,7 @@ public class EnemyStatus : MonoBehaviour
     {
         // SpriteRendererを取得
         sr = GetComponent<SpriteRenderer>();
+ 
         // Animatorを取得
         animator = GetComponent<Animator>();
     }
@@ -104,7 +115,7 @@ public class EnemyStatus : MonoBehaviour
         TakeDamage(1);
 
         // HPが0以下なら破壊
-        if (hp <= 0)
+        if (Hp <= 0)
         {
             OnBreak();
         }
@@ -123,7 +134,7 @@ public class EnemyStatus : MonoBehaviour
         TakeDamage(1);
 
         // HPが0以下なら破壊
-        if (hp <= 0)
+        if (Hp <= 0)
         {
             OnBreak();
         }
@@ -132,12 +143,12 @@ public class EnemyStatus : MonoBehaviour
     // ダメージ処理
     protected virtual void TakeDamage(int damage)
     {   
-        hp = Mathf.Max(0, hp - damage);
+        Hp = Mathf.Max(0, Hp - damage);
         animator.SetTrigger(HitHash);
         // 点滅の演出
         StartCoroutine(Blink());
         
-        if(hp > 0)
+        if(Hp > 0)
         {
             // HPに応じて色を更新
             UpdateColor();            
@@ -185,7 +196,7 @@ public class EnemyStatus : MonoBehaviour
         // 現在の大きさ保持
         Vector3 start = transform.localScale;
         // 最終拡大サイズ
-        Vector3 end = start * 5f;
+        Vector3 end = start * deathEndScale;
 
         // 演出時間
         float t = 0f;        
@@ -226,7 +237,7 @@ public class EnemyStatus : MonoBehaviour
     {
         // デフォルト色（通常ブロック用）
         sr.color = Color.white;
-        switch (hp)
+        switch (Hp)
         {
             case 3:
                 sr.color = Color.white;

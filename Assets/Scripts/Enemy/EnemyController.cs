@@ -1,3 +1,4 @@
+using System.Data.Common;
 using UnityEngine;
 
 /// <summary>
@@ -16,17 +17,42 @@ public enum EnemyType
 /// ・色更新
 /// ・破壊処理
 /// </summary>
+[RequireComponent(typeof(Animator))]
 public class EnemyController : MonoBehaviour
 {
+//    public Enemy enemy;
+
     // このブロックの種類
     public EnemyType blockType;
+
+    public int Hp;
+
+    public Animator moveAnimator;
+
+    public Animator enemyAnimator;
+
+    public EnemyStatus enemyStatus;
+
+   public void Initalize(Enemy enemyData)
+    {
+        var enemy = enemyData;
+        // 移動アニメーション取得
+        moveAnimator = GetComponent<Animator>();
+        moveAnimator.runtimeAnimatorController = EnemyData.Instance.GetMoveAnim(enemy.EnemyMove);
+        // エネミーアニメーション取得
+        enemyAnimator = enemyStatus.GetComponent<Animator>();
+        enemyAnimator.runtimeAnimatorController = EnemyData.Instance.GetEnemyAnim(enemy.EnemyObj);
+        // HP取得
+        Hp = enemy.EnemyHp;
+
+    }
+
 
     /// <summary>
     /// ゲーム開始時に一度だけ呼ばれる
     /// </summary>
     protected virtual void Start()
     {
-        // 初期HPに応じた色を設定
     }
 
 

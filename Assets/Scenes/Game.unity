@@ -2806,7 +2806,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 341e9de758daf462ba0282ba4c5b7f6d, type: 2}
   - {fileID: 11400000, guid: e8c21f35a2c0042839bfb34543c8f8fd, type: 2}
   - {fileID: 11400000, guid: fb510417f39a9468cafd23188f8c6e74, type: 2}
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 394922523093828193, guid: 79865806c356345f1bf707a954e6ef40, type: 3}
   enemyAnimatorList:
   - {fileID: 9100000, guid: a5bc53ffaa20d4055b88910f91e53ae8, type: 2}
   - {fileID: 22100000, guid: f67dbef2b64ef4895a650a52bf091c8f, type: 2}

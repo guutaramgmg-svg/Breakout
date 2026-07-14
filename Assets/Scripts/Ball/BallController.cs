@@ -95,7 +95,7 @@ public class BallController : MonoBehaviour
         }
 
         // ===== 色 =====
-        Color baseColor = hasSpread ? Color.magenta : Color.white;
+        Color baseColor = hasSpread ? Color.magenta : Color.blueViolet;
 
         if (remainingTime <= blinkStartTime)
         {
@@ -205,6 +205,6 @@ public class BallController : MonoBehaviour
         if (sr == null) return;
 
         // 拡散済みは色を変える
-        sr.color = hasSpread ? Color.magenta : Color.white;
+        sr.color = hasSpread ? Color.magenta : Color.blueViolet;
     }
 }

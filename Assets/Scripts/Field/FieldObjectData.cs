@@ -1,20 +1,16 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class EnemyData : MonoBehaviour
+public class FieldObjectData : MonoBehaviour
 {
-    public Enemy[] EnemySO;
+    public Field[] FieldSO;
 
-    // TODO 将来的にリサイクル
-    public EnemyController enemyPrefab;
+    public FieldController fieldPrefab;
 
-    public enum EnemyObj
+    public enum FieldObj
     {
-        Knaight,
-        Ninjya,
-        Touzoku,
-        Maou,
+        Leaf,
+        Stone,
     }
 
     public enum Move
@@ -25,11 +21,11 @@ public class EnemyData : MonoBehaviour
         Up,
 
     }
+    public List<RuntimeAnimatorController> fieldAnimatorList;
 
-    public List<RuntimeAnimatorController> enemyAnimatorList;
     public List<RuntimeAnimatorController> moveAnimatorList;
 
-    public static EnemyData Instance;
+    public static FieldObjectData Instance;
 
     void Awake()
     {
@@ -44,15 +40,13 @@ public class EnemyData : MonoBehaviour
         Instance = this;
     }
 
-
-    public RuntimeAnimatorController GetEnemyAnim(EnemyObj enemy)
+    public RuntimeAnimatorController GetFieldAnim(FieldObj field)
     {
-        return enemyAnimatorList[(int)enemy];
+        return fieldAnimatorList[(int)field];
     } 
-    
+
     public RuntimeAnimatorController GetMoveAnim(Move move)
     {
         return moveAnimatorList[(int)move];
     } 
-
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 
 
@@ -12,7 +13,12 @@ public class StageSequencer : ScriptableObject
 {
     [SerializeField] private String filename = "";
     
+    [SerializeField] private String fieldname = "";
+
     EnemyController EnemyPrefab => EnemyData.Instance.enemyPrefab;
+
+
+
     private Enemy[] EnemyList => EnemyData.Instance.EnemySO;
 
     public struct StageData
@@ -30,8 +36,28 @@ public class StageSequencer : ScriptableObject
         }
     }
 
+    public struct FieldData
+    {
+        public readonly int arg1,arg2,arg3,arg4;
+        public FieldData(int arg1,int arg2,int arg3,int arg4)
+        {
+            this.arg1 = arg1;
+            this.arg2 = arg2;
+            this.arg3 = arg3;
+            this.arg4 = arg4;            
+            
+        }
+        
+    }
+
+
     StageData[] stageDatas;
+
+    FieldData[] fieldDatas;
+
     private int stagedataidx = 0;
+    private int fielddataidx = 0;
+
     public void Load()
     {
         Debug.Log("Load");
@@ -43,11 +69,31 @@ public class StageSequencer : ScriptableObject
         }
 
         //CSVデータ読み込み
-        var csvdata = Resources.Load<TextAsset>(filename).text;
+        var csvdataAsset = Resources.Load<TextAsset>(filename);
+        if (csvdataAsset == null)
+        {
+            Debug.Log($"CSVが見つかりません: {filename}");
+            return;
+        }
+
+        var csvfieldAsset = Resources.Load<TextAsset>(fieldname);
+
+        if (csvfieldAsset == null)
+        {
+            Debug.Log($"フィールドCSVが見つかりません: {fieldname}");
+            return;
+        }
+        var csvdata = csvdataAsset.text;
+        var csvfield = csvfieldAsset.text;
+
         StringReader sr = new StringReader(csvdata);
+        StringReader fieldsr = new StringReader(csvfield);
+
 
         var stagecsvdata = new List<StageData>();
+        var fieldcsvdata = new List<FieldData>();
 
+        // エネミーデータ読み込み
         while (sr.Peek() != -1)
         {
             var line = sr.ReadLine();
@@ -70,14 +116,41 @@ public class StageSequencer : ScriptableObject
 
             );
         }
+
+        // ステージデータ読み込み
+        while(fieldsr.Peek() != -1)
+        {
+            var line = fieldsr.ReadLine();
+            var cols = line.Split(',');
+
+            // if (!enemyTable.TryGetValue(cols[3], out Enemy enemy))
+            // {
+            //     Debug.LogWarning($"Enemy '{cols[3]}' not found.");
+            //     continue;
+            // }
+
+            fieldcsvdata.Add(
+                new FieldData(
+                    int.Parse(cols[0]), // -2
+                    int.Parse(cols[1]), // -1
+                    int.Parse(cols[2]), // 1
+                    int.Parse(cols[3])) // 2
+            );
+            
+        }
+
         Debug.Log("ステージステップカウント：" + stagecsvdata.Count);
+        // エネミーの数を保持
         GameManager.Instance.UpdateEnemyMaxCount(stagecsvdata.Count);
+
         stageDatas = stagecsvdata.OrderBy(item => item.eventPos).ToArray();
+        fieldDatas = fieldcsvdata.ToArray();
     }
 
     public void Reset()
     {
         stagedataidx = 0;
+        fielddataidx = 0;
     }
 
 
@@ -101,4 +174,39 @@ public class StageSequencer : ScriptableObject
         }
         
     }
+
+    public void CreateField()
+    {
+
+        float x = 0,y = 0;
+        while(fielddataidx < fieldDatas.Length)
+        {
+            var fieldData = fieldDatas[fielddataidx];
+            
+            // fieldDataのリストからプレハブを取得する            
+            // Instantiate(fieldPrefab[fieldData.arg1],
+            // new Vector3(-2 ,y, 0),
+            // Quaternion .identity,
+            // StageController.Instance.enemyPool);
+
+            // Instantiate(fieldPrefab[fieldData.arg2],
+            // new Vector3(-1,y, 0),
+            // Quaternion .identity,
+            // StageController.Instance.enemyPool);
+
+            // Instantiate(fieldPrefab[fieldData.arg3],
+            // new Vector3(1,y, 0),
+            // Quaternion .identity,
+            // StageController.Instance.enemyPool);
+
+            // Instantiate(fieldPrefab[fieldData.arg4],
+            // new Vector3(2 ,y, 0),
+            // Quaternion .identity,
+            // StageController.Instance.enemyPool);
+
+            // y = y + 0.5f;    
+            fielddataidx++;
+        }
+    }
+
 }

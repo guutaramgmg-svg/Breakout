@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: Stage01
   m_EditorClassIdentifier: Assembly-CSharp::StageSequencer
   filename: Stage01
-  enemys:
-  - {fileID: 11400000, guid: 1d1f4cc677e234470a26701ee5fa0a27, type: 2}
-  - {fileID: 11400000, guid: a90a8fb8843a64372a085593b3415596, type: 2}
-  enemyPrefab: {fileID: 394922523093828193, guid: 79865806c356345f1bf707a954e6ef40, type: 3}
+  fieldname: test

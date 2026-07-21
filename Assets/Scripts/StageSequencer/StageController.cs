@@ -34,7 +34,8 @@ public class StageController : MonoBehaviour
         sequencer[stage].Load();
         sequencer[stage].Reset();
         stageProgressTime = 0;
-
+        // フィールドの生成        
+        sequencer[stage].CreateField();
         m_StageCreateCoroutine = StartCoroutine(StageCreate(stage));
 
     }

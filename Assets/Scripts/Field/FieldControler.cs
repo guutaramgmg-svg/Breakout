@@ -6,14 +6,14 @@ public class FieldController : MonoBehaviour
     public Animator moveAnimator;
     public Animator fieldAnimator;
 
-    public Field testData;
+    public Field fieldData;
 
     public FieldStatus fieldStatus;
 
 
     public void Start()
     {
-        Initalize(testData);
+        Initalize(fieldData);
     }
 
     public void Initalize(Field fieldData)

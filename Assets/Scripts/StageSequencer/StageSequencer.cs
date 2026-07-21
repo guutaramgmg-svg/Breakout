@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.LookDev;
@@ -17,6 +18,7 @@ public class StageSequencer : ScriptableObject
 
     EnemyController EnemyPrefab => EnemyData.Instance.enemyPrefab;
 
+    FieldController FieldPrefab => FieldObjectData.Instance.fieldPrefab;
 
 
     private Enemy[] EnemyList => EnemyData.Instance.EnemySO;
@@ -36,24 +38,10 @@ public class StageSequencer : ScriptableObject
         }
     }
 
-    public struct FieldData
-    {
-        public readonly int arg1,arg2,arg3,arg4;
-        public FieldData(int arg1,int arg2,int arg3,int arg4)
-        {
-            this.arg1 = arg1;
-            this.arg2 = arg2;
-            this.arg3 = arg3;
-            this.arg4 = arg4;            
-            
-        }
-        
-    }
 
 
     StageData[] stageDatas;
 
-    FieldData[] fieldDatas;
 
     private int stagedataidx = 0;
     private int fielddataidx = 0;
@@ -91,8 +79,8 @@ public class StageSequencer : ScriptableObject
 
 
         var stagecsvdata = new List<StageData>();
-        var fieldcsvdata = new List<FieldData>();
-
+        //var fieldcsvdata = new List<FieldData>();
+ 
         // エネミーデータ読み込み
         while (sr.Peek() != -1)
         {
@@ -123,28 +111,19 @@ public class StageSequencer : ScriptableObject
             var line = fieldsr.ReadLine();
             var cols = line.Split(',');
 
-            // if (!enemyTable.TryGetValue(cols[3], out Enemy enemy))
-            // {
-            //     Debug.LogWarning($"Enemy '{cols[3]}' not found.");
-            //     continue;
-            // }
+            List<int> row = new List<int>();
 
-            fieldcsvdata.Add(
-                new FieldData(
-                    int.Parse(cols[0]), // -2
-                    int.Parse(cols[1]), // -1
-                    int.Parse(cols[2]), // 1
-                    int.Parse(cols[3])) // 2
-            );
-            
+            foreach(string col in cols)
+            {
+                row.Add(int.Parse(col));
+            }            
+            fieldDatas.Add(row);
         }
 
         Debug.Log("ステージステップカウント：" + stagecsvdata.Count);
         // エネミーの数を保持
         GameManager.Instance.UpdateEnemyMaxCount(stagecsvdata.Count);
-
         stageDatas = stagecsvdata.OrderBy(item => item.eventPos).ToArray();
-        fieldDatas = fieldcsvdata.ToArray();
     }
 
     public void Reset()
@@ -164,7 +143,6 @@ public class StageSequencer : ScriptableObject
             var instance = Instantiate(EnemyPrefab,
             StageController.Instance.enemyPool);
 
-
             // 配置 
             instance.transform.localPosition =
             new Vector3(stageData.arg1, stageData.arg2,0);
@@ -175,38 +153,35 @@ public class StageSequencer : ScriptableObject
         
     }
 
+
+    private List<int> fieldColList = new List<int>();
+
+     List<List<int>> fieldDatas = new List<List<int>>();
+
+
     public void CreateField()
     {
+        float x = -3f ,y = 5.25f;
 
-        float x = 0,y = 0;
-        while(fielddataidx < fieldDatas.Length)
+        while(fielddataidx < fieldDatas.Count)
         {
-            var fieldData = fieldDatas[fielddataidx];
-            
-            // fieldDataのリストからプレハブを取得する            
-            // Instantiate(fieldPrefab[fieldData.arg1],
-            // new Vector3(-2 ,y, 0),
-            // Quaternion .identity,
-            // StageController.Instance.enemyPool);
+            int colIndex = 0;
+            while (colIndex < fieldDatas[fielddataidx].Count)
+            {
+              var field = Instantiate(
+                FieldPrefab,
+                new Vector3(x,y,0),
+                Quaternion.identity);
+                int id = fieldDatas[fielddataidx][colIndex];
 
-            // Instantiate(fieldPrefab[fieldData.arg2],
-            // new Vector3(-1,y, 0),
-            // Quaternion .identity,
-            // StageController.Instance.enemyPool);
+              field.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];
+              x += 0.5f;
+              colIndex++;                
+            }
+            y -= 0.5f;
 
-            // Instantiate(fieldPrefab[fieldData.arg3],
-            // new Vector3(1,y, 0),
-            // Quaternion .identity,
-            // StageController.Instance.enemyPool);
-
-            // Instantiate(fieldPrefab[fieldData.arg4],
-            // new Vector3(2 ,y, 0),
-            // Quaternion .identity,
-            // StageController.Instance.enemyPool);
-
-            // y = y + 0.5f;    
+            x = -3f; // 初期化
             fielddataidx++;
         }
     }
-
 }

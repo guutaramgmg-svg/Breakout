@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Field
   FieldHp: 2
   FieldMove: 1
-  FieldObj: 0
+  FieldObj: 1

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3c7bd9a0c5e4a11b7aa672238b90be, type: 3}
   m_Name: NinjyaDown
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  EnemyMove: 0
+  EnemyMove: 1
   EnemyObj: 1
   EnemyHp: 4

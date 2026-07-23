@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Stage02
   m_EditorClassIdentifier: Assembly-CSharp::StageSequencer
   filename: Stage02
-  fieldname: test
+  fieldname: Field02

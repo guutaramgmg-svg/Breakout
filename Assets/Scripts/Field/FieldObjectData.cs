@@ -15,6 +15,7 @@ public class FieldObjectData : MonoBehaviour
 
     public enum Move
     {
+        Show,
         Down,
         Left,
         Right,

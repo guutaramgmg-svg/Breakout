@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d3c7bd9a0c5e4a11b7aa672238b90be, type: 3}
-  m_Name: KnaightDown
+  m_Name: MaouShow
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  EnemyMove: 1
-  EnemyObj: 0
-  EnemyHp: 5
+  EnemyMove: 0
+  EnemyObj: 3
+  EnemyHp: 6

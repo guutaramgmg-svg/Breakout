@@ -1573,6 +1573,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 278112664}
+  - {fileID: 1259033752}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &561160589
@@ -1592,6 +1593,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0f73f253461f04c9e8bda2727d0f27bb, type: 2}
   - {fileID: 11400000, guid: 459d72721d48443d3836b37c123c9fdb, type: 2}
   enemyPool: {fileID: 278112664}
+  fieldPool: {fileID: 1259033752}
   stageSelect: 0
 --- !u!1 &598169316
 GameObject:
@@ -2806,6 +2808,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 341e9de758daf462ba0282ba4c5b7f6d, type: 2}
   - {fileID: 11400000, guid: e8c21f35a2c0042839bfb34543c8f8fd, type: 2}
   - {fileID: 11400000, guid: fb510417f39a9468cafd23188f8c6e74, type: 2}
+  - {fileID: 11400000, guid: c9198675cacce4a7c8a72e727b2358a1, type: 2}
   enemyPrefab: {fileID: 394922523093828193, guid: 79865806c356345f1bf707a954e6ef40, type: 3}
   enemyAnimatorList:
   - {fileID: 9100000, guid: a5bc53ffaa20d4055b88910f91e53ae8, type: 2}
@@ -2813,6 +2816,7 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 6b640475c739c4f8b866cf81e7d3776b, type: 2}
   - {fileID: 22100000, guid: b307b53e6fef948c48fbde5961fcfc72, type: 2}
   moveAnimatorList:
+  - {fileID: 9100000, guid: dd6f306e7077e4859adf7a216e1d4f04, type: 2}
   - {fileID: 9100000, guid: e6b8fd372794c49a689fd3289673dd23, type: 2}
   - {fileID: 9100000, guid: ff414c5ecc5fd4eef916118452ad9a15, type: 2}
   - {fileID: 9100000, guid: 9e8a50eb4da2c448f9dae30c8ca8bd4b, type: 2}
@@ -2969,6 +2973,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114080675}
   m_CullTransparentMesh: 1
+--- !u!1 &1259033751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259033752}
+  m_Layer: 0
+  m_Name: FieldPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259033752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259033751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 561160588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290842075
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,12 +3648,13 @@ MonoBehaviour:
   FieldSO:
   - {fileID: 11400000, guid: bfc19e899fa004723991928e428550d6, type: 2}
   - {fileID: 11400000, guid: bfc19e899fa004723991928e428550d6, type: 2}
-  - {fileID: 11400000, guid: bfc19e899fa004723991928e428550d6, type: 2}
+  - {fileID: 11400000, guid: fc2dccfb0914748969c918c3f29dc4e2, type: 2}
   fieldPrefab: {fileID: 8959800647012818503, guid: d7022b1fd0bc3439a9316f87e6a38cf7, type: 3}
   fieldAnimatorList:
   - {fileID: 9100000, guid: dacad50984ee841bfb6bfa7b1c60f8f9, type: 2}
   - {fileID: 22100000, guid: bcd7be84c68f74b4f9ef1472153f0299, type: 2}
   moveAnimatorList:
+  - {fileID: 9100000, guid: dd6f306e7077e4859adf7a216e1d4f04, type: 2}
   - {fileID: 9100000, guid: e6b8fd372794c49a689fd3289673dd23, type: 2}
   - {fileID: 9100000, guid: ff414c5ecc5fd4eef916118452ad9a15, type: 2}
   - {fileID: 9100000, guid: 9e8a50eb4da2c448f9dae30c8ca8bd4b, type: 2}

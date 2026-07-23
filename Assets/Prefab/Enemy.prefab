@@ -236,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec431dc602162425c97383d96a53fc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  enemy: {fileID: 11400000, guid: 1d1f4cc677e234470a26701ee5fa0a27, type: 2}
   blockType: 0
   Hp: 0
   moveAnimator: {fileID: 0}

@@ -19,6 +19,7 @@ public class EnemyData : MonoBehaviour
 
     public enum Move
     {
+        Show,
         Down,
         Left,
         Right,

@@ -157,8 +157,10 @@ public class FieldStatus : MonoBehaviour
     {
         // 自分自身を削除
         Destroy(transform.parent.gameObject);
+
+        // TODO フィールどの削除通知後で作る
         // GameManager にブロック破壊を通知
-        GameManager.Instance.OnBlockDestroyed();
+        // GameManager.Instance.OnBlockDestroyed();
         
     }
 

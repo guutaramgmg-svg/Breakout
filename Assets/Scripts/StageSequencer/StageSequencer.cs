@@ -152,13 +152,7 @@ public class StageSequencer : ScriptableObject
         }
         
     }
-
-
-    private List<int> fieldColList = new List<int>();
-
-     List<List<int>> fieldDatas = new List<List<int>>();
-
-
+    List<List<int>> fieldDatas = new List<List<int>>();
     public void CreateField()
     {
         float x = -3f ,y = 5.25f;
@@ -168,13 +162,17 @@ public class StageSequencer : ScriptableObject
             int colIndex = 0;
             while (colIndex < fieldDatas[fielddataidx].Count)
             {
-              var field = Instantiate(
-                FieldPrefab,
-                new Vector3(x,y,0),
-                Quaternion.identity);
                 int id = fieldDatas[fielddataidx][colIndex];
 
-              field.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];
+                if (id != 0)
+                {
+                var field = Instantiate(
+                FieldPrefab,
+                new Vector3(x,y,0),
+                Quaternion.identity,
+                StageController.Instance.fieldPool);
+                field.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];                    
+                }
               x += 0.5f;
               colIndex++;                
             }

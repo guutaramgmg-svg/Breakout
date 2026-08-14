@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyData : MonoBehaviour
+public class EnemyObjectData : MonoBehaviour
 {
     public Enemy[] EnemySO;
 
     // TODO 将来的にリサイクル
     public EnemyController enemyPrefab;
 
+    public List<GameObject> ActionPrefab;
+    
     public enum EnemyObj
     {
         Knaight,
@@ -30,7 +32,7 @@ public class EnemyData : MonoBehaviour
     public List<RuntimeAnimatorController> enemyAnimatorList;
     public List<RuntimeAnimatorController> moveAnimatorList;
 
-    public static EnemyData Instance;
+    public static EnemyObjectData Instance;
 
     void Awake()
     {

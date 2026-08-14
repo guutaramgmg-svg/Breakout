@@ -40,7 +40,7 @@ public class StageController : MonoBehaviour
     /// <param name="stage"></param>
     public void GameStart(int stage)
     {
-        FieldReset();
+        //FieldReset();
         
         sequencer[stage].Load();
         sequencer[stage].Reset();

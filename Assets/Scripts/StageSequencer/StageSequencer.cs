@@ -12,24 +12,23 @@ using UnityEngine.Rendering.LookDev;
 [CreateAssetMenu(menuName = "StageSequencer")]
 public class StageSequencer : ScriptableObject
 {
-    [SerializeField] private String filename = "";
+    [SerializeField] private String enemyname = "";
     
     [SerializeField] private String fieldname = "";
 
-    EnemyController EnemyPrefab => EnemyData.Instance.enemyPrefab;
+    EnemyController EnemyPrefab => EnemyObjectData.Instance.enemyPrefab;
 
     FieldController FieldPrefab => FieldObjectData.Instance.fieldPrefab;
 
+    private Enemy[] EnemyList => EnemyObjectData.Instance.EnemySO;
 
-    private Enemy[] EnemyList => EnemyData.Instance.EnemySO;
-
-    public struct StageData
+    public struct EnemyData
     {
         public readonly float eventPos;
         public readonly float arg1, arg2;
         public readonly Enemy arg3;
 
-        public StageData(float _eventpos, float _x, float _y, Enemy _type)
+        public EnemyData(float _eventpos, float _x, float _y, Enemy _type)
         {
             eventPos = _eventpos;
             arg1 = _x;
@@ -40,7 +39,7 @@ public class StageSequencer : ScriptableObject
 
 
 
-    StageData[] stageDatas;
+    EnemyData[] stageDatas;
 
 
     private int stagedataidx = 0;
@@ -57,10 +56,10 @@ public class StageSequencer : ScriptableObject
         }
 
         //CSVデータ読み込み
-        var csvdataAsset = Resources.Load<TextAsset>(filename);
+        var csvdataAsset = Resources.Load<TextAsset>(enemyname);
         if (csvdataAsset == null)
         {
-            Debug.Log($"CSVが見つかりません: {filename}");
+            Debug.Log($"CSVが見つかりません: {enemyname}");
             return;
         }
 
@@ -78,7 +77,7 @@ public class StageSequencer : ScriptableObject
         StringReader fieldsr = new StringReader(csvfield);
 
 
-        var stagecsvdata = new List<StageData>();
+        var stagecsvdata = new List<EnemyData>();
         //var fieldcsvdata = new List<FieldData>();
  
         // エネミーデータ読み込み
@@ -96,7 +95,7 @@ public class StageSequencer : ScriptableObject
             }
 
             stagecsvdata.Add(
-                new StageData(
+                new EnemyData(
                     float.Parse(cols[0]), // シーケンス
                     float.Parse(cols[1]), // x座標
                     float.Parse(cols[2]), // y座標
@@ -140,14 +139,11 @@ public class StageSequencer : ScriptableObject
          stageDatas[stagedataidx].eventPos <= _stageProgressTime)
         {
             var stageData = stageDatas[stagedataidx];
-            var instance = Instantiate(EnemyPrefab,
-            StageController.Instance.enemyPool);
+            var obj = StageController.Instance.enemyPool.GetComponent<ObjectPool>().Launch(
+            new Vector3(stageData.arg1, stageData.arg2, 0),
+            0f);
 
-            // 配置 
-            instance.transform.localPosition =
-            new Vector3(stageData.arg1, stageData.arg2,0);
-            // エネミーの初期化
-            instance.Initalize(stageData.arg3);
+            obj.GetComponent<EnemyController>().Initalize(stageData.arg3);
             stagedataidx++;
         }
         
@@ -166,18 +162,29 @@ public class StageSequencer : ScriptableObject
 
                 if (id != 0)
                 {
-                var field = Instantiate(
-                FieldPrefab,
-                new Vector3(x,y,0),
-                Quaternion.identity,
-                StageController.Instance.fieldPool);
-                field.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];                    
+                    var obj = StageController.Instance.fieldPool.GetComponent<ObjectPool>().Launch(
+                        new Vector3(x,y,0),
+                        0f);
+                        if(obj == null)
+                    {
+                        Debug.Log("オブジェクトなし");
+                    }
+//                        obj.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];
+                        obj.GetComponent<FieldController>().Initialize(FieldObjectData.Instance.FieldSO[id]);
+                        
+
+                    // var field = Instantiate(
+                    // FieldPrefab,
+                    // new Vector3(x,y,0),
+                    // Quaternion.identity,
+                    // StageController.Instance.fieldPool);
+                    // field.GetComponent<FieldController>().fieldData = FieldObjectData.Instance.FieldSO[id];
                 }
-              x += 0.5f;
-              colIndex++;                
+
+                x += 0.5f;
+                colIndex++;
             }
             y -= 0.5f;
-
             x = -3f; // 初期化
             fielddataidx++;
         }

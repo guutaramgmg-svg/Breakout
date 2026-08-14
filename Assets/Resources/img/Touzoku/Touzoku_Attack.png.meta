@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: 52553e5813fdd45a29d576b548a00d4e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6859730055325771695
+    second: Touzoku_Attack_0
+  - first:
+      213: 6312535153903543069
+    second: Touzoku_Attack_1
+  - first:
+      213: 8938292013779340503
+    second: Touzoku_Attack_2
+  - first:
+      213: -1832280901563644696
+    second: Touzoku_Attack_3
+  - first:
+      213: -8346877689107707221
+    second: Touzoku_Attack_4
+  - first:
+      213: -7160735354501019403
+    second: Touzoku_Attack_5
+  - first:
+      213: 380561912620599539
+    second: Touzoku_Attack_6
+  - first:
+      213: -4284502652493782689
+    second: Touzoku_Attack_7
+  - first:
+      213: 4016577820202917622
+    second: Touzoku_Attack_8
+  - first:
+      213: 4477160927259062962
+    second: Touzoku_Attack_9
+  - first:
+      213: -640242406950061946
+    second: Touzoku_Attack_10
+  - first:
+      213: -2307296723619901673
+    second: Touzoku_Attack_11
+  - first:
+      213: 7447410823802422298
+    second: Touzoku_Attack_12
+  - first:
+      213: -9147060883344268609
+    second: Touzoku_Attack_13
+  - first:
+      213: -3079550448511169563
+    second: Touzoku_Attack_14
+  - first:
+      213: -6748303752749646999
+    second: Touzoku_Attack_15
+  - first:
+      213: 5930508801453900025
+    second: Touzoku_Attack_16
+  - first:
+      213: -5115734630888344687
+    second: Touzoku_Attack_17
+  - first:
+      213: 8505266756638092091
+    second: Touzoku_Attack_18
+  - first:
+      213: 6167037489120772447
+    second: Touzoku_Attack_19
+  - first:
+      213: 8777936688434767391
+    second: Touzoku_Attack_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Touzoku_Attack_0
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 527
+        width: 130
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1589c3debd75dc0a0800000000000000
+      internalID: -6859730055325771695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 527
+        width: 162
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d132698f641aa9750800000000000000
+      internalID: 6312535153903543069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 527
+        width: 162
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dc470cba313b0c70800000000000000
+      internalID: 8938292013779340503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 527
+        width: 154
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e401955a3e6296e0800000000000000
+      internalID: -1832280901563644696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 271
+        width: 162
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa0a1527fee92c80800000000000000
+      internalID: -8346877689107707221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_5
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 271
+        width: 162
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f8c2606225ff9c90800000000000000
+      internalID: -7160735354501019403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_6
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 271
+        width: 162
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f84bc01b07084500800000000000000
+      internalID: 380561912620599539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_7
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 271
+        width: 218
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51a3eea9836a84c0800000000000000
+      internalID: -4284502652493782689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_8
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 351
+        width: 18
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe58e92f30cdb730800000000000000
+      internalID: 4016577820202917622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_9
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 15
+        width: 226
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2f88f6422122e30800000000000000
+      internalID: 4477160927259062962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_10
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 71
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688b99b4ce66d17f0800000000000000
+      internalID: -640242406950061946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_11
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 79
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71f863dbad5daffd0800000000000000
+      internalID: -2307296723619901673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_12
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 23
+        width: 82
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a148429afa48a5760800000000000000
+      internalID: 7447410823802422298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_13
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 55
+        width: 50
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb2e46df69c1f0180800000000000000
+      internalID: -9147060883344268609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_14
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 55
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ebc898ee2d3345d0800000000000000
+      internalID: -3079550448511169563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_15
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 63
+        width: 42
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96bfbecad753952a0800000000000000
+      internalID: -6748303752749646999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_16
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 23
+        width: 50
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f0ccff65566d4250800000000000000
+      internalID: 5930508801453900025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_17
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 39
+        width: 26
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1937cb025724109b0800000000000000
+      internalID: -5115734630888344687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_18
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 47
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b2a556d07c80670800000000000000
+      internalID: 8505266756638092091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_19
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 23
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f518f870ce7b59550800000000000000
+      internalID: 6167037489120772447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Touzoku_Attack_20
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 23
+        width: 42
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16e50f19ee71d970800000000000000
+      internalID: 8777936688434767391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Touzoku_Attack_0: -6859730055325771695
+      Touzoku_Attack_1: 6312535153903543069
+      Touzoku_Attack_10: -640242406950061946
+      Touzoku_Attack_11: -2307296723619901673
+      Touzoku_Attack_12: 7447410823802422298
+      Touzoku_Attack_13: -9147060883344268609
+      Touzoku_Attack_14: -3079550448511169563
+      Touzoku_Attack_15: -6748303752749646999
+      Touzoku_Attack_16: 5930508801453900025
+      Touzoku_Attack_17: -5115734630888344687
+      Touzoku_Attack_18: 8505266756638092091
+      Touzoku_Attack_19: 6167037489120772447
+      Touzoku_Attack_2: 8938292013779340503
+      Touzoku_Attack_20: 8777936688434767391
+      Touzoku_Attack_3: -1832280901563644696
+      Touzoku_Attack_4: -8346877689107707221
+      Touzoku_Attack_5: -7160735354501019403
+      Touzoku_Attack_6: 380561912620599539
+      Touzoku_Attack_7: -4284502652493782689
+      Touzoku_Attack_8: 4016577820202917622
+      Touzoku_Attack_9: 4477160927259062962
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

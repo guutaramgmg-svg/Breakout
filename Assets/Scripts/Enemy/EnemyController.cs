@@ -33,18 +33,48 @@ public class EnemyController : MonoBehaviour
 
     public EnemyStatus enemyStatus;
 
+    private Enemy enemy;
+
+    PoolContent poolcontent;
+
+
    public void Initalize(Enemy enemyData)
     {
-        var enemy = enemyData;
-        // 移動アニメーション取得
+                
+        poolcontent = GetComponent<PoolContent>();
+        enemy = enemyData;
+        // 移動アニメーション取得        
         moveAnimator = GetComponent<Animator>();
-        moveAnimator.runtimeAnimatorController = EnemyData.Instance.GetMoveAnim(enemy.EnemyMove);
+        if(moveAnimator == null)
+        {
+            Debug.LogError("移動用アニメーションがありません。");
+            return;
+        }
+        moveAnimator.runtimeAnimatorController = EnemyObjectData.Instance.GetMoveAnim(enemy.EnemyMove);
+
+        if(enemyStatus == null)
+        {
+            Debug.LogError("enemyStatusが設定されていません。");
+            return;
+        }
         // エネミーアニメーション取得
         enemyAnimator = enemyStatus.GetComponent<Animator>();
-        enemyAnimator.runtimeAnimatorController = EnemyData.Instance.GetEnemyAnim(enemy.EnemyObj);
+
+        if(moveAnimator == null)
+        {
+            Debug.LogError("ステータス側のアニメーションがありません。");
+            return;
+        }
+        enemyAnimator.runtimeAnimatorController = EnemyObjectData.Instance.GetEnemyAnim(enemy.EnemyObj);
         // HP取得
         Hp = enemy.EnemyHp;
 
+        // EnemyStatusを初期状態に戻す
+        enemyStatus.ResetStatus();
+    }
+    public void Action()
+    {
+        enemyStatus.Action(enemy.EnemyObj);        
     }
 
 
@@ -55,5 +85,8 @@ public class EnemyController : MonoBehaviour
     {
     }
 
-
+    public virtual void Death()
+    {
+        poolcontent.HideFromStage();
+    }
 }

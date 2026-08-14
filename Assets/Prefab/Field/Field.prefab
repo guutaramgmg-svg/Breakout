@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 587709243682254191}
   - component: {fileID: 1437663503152605254}
   - component: {fileID: 8959800647012818503}
+  - component: {fileID: 921981632340649746}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -248,3 +249,15 @@ MonoBehaviour:
   fieldAnimator: {fileID: 0}
   fieldData: {fileID: 0}
   fieldStatus: {fileID: 8491477437317373960}
+--- !u!114 &921981632340649746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5077001146169372224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966b52786bfd64e48ae2eff78c060b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoolContent

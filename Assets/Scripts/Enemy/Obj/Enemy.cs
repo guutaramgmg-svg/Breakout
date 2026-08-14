@@ -6,10 +6,10 @@ using UnityEngine;
 public class Enemy : ScriptableObject
 {    
     // 移動アニメーション
-    public EnemyData.Move EnemyMove;
+    public EnemyObjectData.Move EnemyMove;
 
     // エネミーの見た目
-    public EnemyData.EnemyObj EnemyObj;
+    public EnemyObjectData.EnemyObj EnemyObj;
     
     // HP
     public int EnemyHp;

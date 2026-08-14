@@ -9,7 +9,7 @@ public class Move : MonoBehaviour
     private static readonly int XHash = Animator.StringToHash("X");
     private static readonly int YHash = Animator.StringToHash("Y");
 
-    private Vector2 lastDirection = Vector2.down; // 初期は左向き
+    private Vector2 lastDirection = Vector2.down; // 初期は下向き
 
 //    private static readonly int SpeedHash = Animator.StringToHash("Speed");
 

@@ -40,6 +40,9 @@ public class EnemyStatus : MonoBehaviour
     // 死亡フラグ
     private bool isDead = false;
 
+    // サイズ
+    private Vector3 initialScale;
+
     /// <summary>
     /// オブジェクト生成時に最初に呼ばれる
     /// 参照の取得は必ずここで行う
@@ -51,6 +54,9 @@ public class EnemyStatus : MonoBehaviour
  
         // Animatorを取得
         animator = GetComponent<Animator>();
+
+        // 初期サイズを保存
+        initialScale = transform.localScale;
     }
 
     /// <summary>
@@ -223,11 +229,34 @@ public class EnemyStatus : MonoBehaviour
     public void OnDestroyEnd()
     {
         // 自分自身を削除
-        Destroy(transform.parent.gameObject);
+        enemyController.Death();
         // GameManager にブロック破壊を通知
         GameManager.Instance.OnBlockDestroyed();
-        
     }
+
+    /// <summary>
+    /// アクション
+    /// </summary>
+    /// <param name="enemy"></param>
+    public void Action(EnemyObjectData.EnemyObj enemy)
+    {
+        switch (enemy)
+        {
+            case EnemyObjectData.EnemyObj.Knaight:     
+            Debug.Log("ナイトAction");               
+            Instantiate(EnemyObjectData.Instance.ActionPrefab[(int)enemy],this.transform.position,Quaternion.identity);
+            break;
+
+            case EnemyObjectData.EnemyObj.Touzoku:     
+            Debug.Log("盗賊Action");               
+            break;
+
+            default:
+            Debug.Log("未定義の敵");               
+            break;
+        }
+    }
+
 
     /// <summary>
     /// HPや種類に応じてブロックの色を変更する
@@ -254,6 +283,22 @@ public class EnemyStatus : MonoBehaviour
                 sr.color = Color.white;
                 break;
         }
+    }
+
+    public void ResetStatus()
+    {
+        // 死亡状態をリセット
+        isDead = false;
+        isBlinking = false;
+
+        // 見た目をリセット
+        sr.enabled = true;
+
+        // 大きさを初期状態に戻す
+        transform.localScale = initialScale;
+
+        // 色を初期状態に戻す
+        UpdateColor();
     }
 
 }

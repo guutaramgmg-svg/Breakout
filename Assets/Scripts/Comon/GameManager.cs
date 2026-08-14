@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int m_Stage;
 
+    private int ShootCount;
+
     public void EnemyCountReset()
     {
         m_EnemyCount = 0;
@@ -83,26 +85,6 @@ public class GameManager : MonoBehaviour
         uiManager.GameStart(stage);
         //ステージ生成開始
         StageController.Instance.GameStart(stage);
-    }
-
-    /// <summary>
-    /// 一定時間ごとにボールを発射するコルーチン
-    /// </summary>
-    IEnumerator ShootRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            Shoot(new Vector2(0, -2));
-        }
-    }
-
-    /// <summary>
-    /// 指定位置にボールを生成する
-    /// </summary>
-    public void Shoot(Vector2 pos)
-    {
-        Instantiate(ball, pos, Quaternion.identity);
     }
 
     void Update()
@@ -211,9 +193,5 @@ public class GameManager : MonoBehaviour
     {
         uiManager.UpdateEnemyCountText(m_EnemyCount,m_EnemyMaxCount);
     }
-
-
-
-
 
 }

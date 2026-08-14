@@ -26,6 +26,8 @@ public class FieldStatus : MonoBehaviour
 
     public FieldController fieldController;
 
+    private Vector3 initialScale;
+
     public int Hp
     {
         get => fieldController.Hp;
@@ -43,6 +45,8 @@ public class FieldStatus : MonoBehaviour
  
         // Animatorを取得
         animator = GetComponent<Animator>();
+
+        initialScale = transform.localScale;
     }
 
 
@@ -156,11 +160,7 @@ public class FieldStatus : MonoBehaviour
     public void OnDestroyEnd()
     {
         // 自分自身を削除
-        Destroy(transform.parent.gameObject);
-
-        // TODO フィールどの削除通知後で作る
-        // GameManager にブロック破壊を通知
-        // GameManager.Instance.OnBlockDestroyed();
+        fieldController.Death();
         
     }
 
@@ -189,5 +189,21 @@ public class FieldStatus : MonoBehaviour
                 sr.color = Color.white;
                 break;
         }
+    }
+
+    public void ResetStatus()
+    {
+        // 死亡状態をリセット
+        isDead = false;
+        isBlinking = false;
+
+        // 見た目リセット
+        sr.enabled = true;
+
+        //大きさ初期値
+        transform.localScale = initialScale;
+
+        // 色を初期状態にする
+        UpdateColor();
     }
 }

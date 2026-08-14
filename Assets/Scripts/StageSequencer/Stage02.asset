@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4085e081dcf24eb0bf1b75b9bf81863, type: 3}
   m_Name: Stage02
   m_EditorClassIdentifier: Assembly-CSharp::StageSequencer
-  filename: Stage02
+  enemyname: Enemy02
   fieldname: Field02

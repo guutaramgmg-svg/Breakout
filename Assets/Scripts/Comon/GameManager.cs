@@ -11,12 +11,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    // ===== プレハブ参照 =====
-    [SerializeField] GameObject ball;          // ボールのプレハブ
-
-    // ===== ボール生成間隔 =====
-    [SerializeField] float interval = 5f;      // 何秒ごとにボールを出すか
-
     // ===== ゲーム状態管理 =====
     bool isGameOver = false;  // ゲームクリア済みかどうか
 
@@ -39,7 +33,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int m_Stage;
 
-    private int ShootCount;
+    // 球数
+    public int ShotCount{get; private set; } = 2;
+    // 最大球数
+    public int MaxShotCount{get; private set; } = 5;
+    
 
     public void EnemyCountReset()
     {
@@ -192,6 +190,48 @@ public class GameManager : MonoBehaviour
     public void UpdateEnemyCount()
     {
         uiManager.UpdateEnemyCountText(m_EnemyCount,m_EnemyMaxCount);
+    }
+
+    /// <summary>
+    /// 球を発射できるか？（状態確認用　今の所は未使用
+    /// </summary>
+    /// <returns></returns>
+    public bool CanShot()
+    {
+        return ShotCount > 0;
+    }
+
+    /// <summary>
+    /// ショット数追加
+    /// </summary>
+    /// <param name="amount"></param>
+    public void AddShot(int amount = 1)
+    {
+        //マックスカウントまで増加させたい
+        ShotCount = Mathf.Min(ShotCount + amount,MaxShotCount);
+        Debug.Log("ショット数:" + ShotCount);
+    }
+
+    /// <summary>
+    /// ショット使用
+    /// </summary>
+    public bool UseShot()
+    {
+        if(ShotCount <= 0)
+        {
+            return false;    
+        }
+        ShotCount--;
+        return true;
+    }
+
+    /// <summary>
+    /// ショットマックスか確認
+    /// </summary>
+    /// <returns></returns>
+    public bool IsShotMax()
+    {
+        return ShotCount >= MaxShotCount;
     }
 
 }

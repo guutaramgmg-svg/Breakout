@@ -197,18 +197,16 @@ public class PaddleController : MonoBehaviour
         targetX = Mathf.Clamp(targetX, minX, maxX);
         rb.MovePosition(new Vector2(targetX, rb.position.y));
     }
-
-    /// <summary>
-    /// ボールの発射
-    /// </summary>
-    public void BoolShot()
-    {
-        Instantiate(ball, this.transform.position, Quaternion.identity);
-    }
     
     // タップ時
     void OnTap()
     {
+        //打てんのか？
+        if(GameManager.Instance.UseShot())
+        {
+            // 攻撃処理
+            Instantiate(ball, this.transform.position, Quaternion.identity);
+        }
     }
 
     /// <summary>

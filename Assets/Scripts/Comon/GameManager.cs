@@ -212,6 +212,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("ショット数:" + ShotCount);
     }
 
+
+    public ShotStockController shotStockController;
     /// <summary>
     /// ショット使用
     /// </summary>
@@ -221,6 +223,7 @@ public class GameManager : MonoBehaviour
         {
             return false;    
         }
+        shotStockController.Shot();
         ShotCount--;
         return true;
     }

@@ -30,24 +30,21 @@ public class ShotStockController : MonoBehaviour
     {
         CreateShots();
 
-        // 最初のチャージ対象を探す
-        StartNextCharge();
+        // 最初はチャージ不要
+        // 全部満タンなので何もしない
     }
 
 
     private void Update()
     {
-        // 現在チャージ中のShotがあるか確認
-        if (chargingShot != null)
+        // 現在チャージ中のShotが満タンになった
+        if (chargingShot != null && chargingShot.IsFull)
         {
-            // 満タンになったら
-            if (chargingShot.IsFull)
-            {
-                chargingShot = null;
-            }
+            chargingShot = null;
         }
 
-        // チャージ中のShotがなければ次を探す
+        // チャージ中のShotがなければ
+        // 空いているShotを1個だけチャージ
         if (chargingShot == null)
         {
             StartNextCharge();
@@ -55,7 +52,10 @@ public class ShotStockController : MonoBehaviour
     }
 
 
-    // ショットを生成
+    // =========================
+    // Shot生成
+    // =========================
+
     private void CreateShots()
     {
         for (int i = 0; i < maxShotCount; i++)
@@ -65,7 +65,6 @@ public class ShotStockController : MonoBehaviour
     }
 
 
-    // ショットを1個生成
     private void CreateShot()
     {
         ShotController shot = Instantiate(shotPrefab, shotParent);
@@ -77,51 +76,85 @@ public class ShotStockController : MonoBehaviour
     }
 
 
+    // =========================
     // 次にチャージするShotを探す
+    // =========================
+
     private void StartNextCharge()
     {
         for (int i = 0; i < shots.Count; i++)
         {
-            // すでに満タンなら次を見る
+            // 満タンなら無視
             if (shots[i].IsFull)
             {
                 continue;
             }
 
-            // このShotをチャージ対象にする
+            // このShotがすでにチャージ中なら無視
+            if (shots[i].IsCharging)
+            {
+                continue;
+            }
+
+            // チャージ対象にする
             chargingShot = shots[i];
 
-            // チャージ開始
-            chargingShot.Reset();
+            chargingShot.StartCharge();
 
             return;
         }
     }
 
 
+    // =========================
+    // ショットを使用
+    // =========================
+
+public void Shot()
+{
+    // 右から満タンのShotを探す
+    for (int i = shots.Count - 1; i >= 0; i--)
+    {
+        if (shots[i].IsFull)
+        {
+            // このShotを消費
+            shots[i].Clear();
+
+            // 状態を左詰めする
+            MoveShotsLeft(i);
+
+            return;
+        }
+    }
+}
+private void MoveShotsLeft(int emptyIndex)
+{
+    for (int i = emptyIndex; i < shots.Count - 1; i++)
+    {
+        // 次のShotが現在チャージ中なら、
+        // 移動先を新しいチャージ対象にする
+        if (chargingShot == shots[i + 1])
+        {
+            chargingShot = shots[i];
+        }
+
+        shots[i].CopyFrom(shots[i + 1]);
+    }
+
+    // 一番右を空にする
+    shots[shots.Count - 1].Clear();
+}
+    // =========================
     // 最大ショット数を増やす
+    // =========================
+
     public void AddMaxShot(int amount)
     {
         maxShotCount += amount;
 
-        // 増えた分だけ生成
         while (shots.Count < maxShotCount)
         {
             CreateShot();
-        }
-    }
-
-
-    // ショットを使用
-    public void Shot()
-    {
-        for (int i = 0; i < shots.Count; i++)
-        {
-            if (shots[i].IsFull)
-            {
-                shots[i].ShotLost();
-                return;
-            }
         }
     }
 }

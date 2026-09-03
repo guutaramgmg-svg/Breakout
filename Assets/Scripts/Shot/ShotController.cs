@@ -5,25 +5,26 @@ public class ShotController : MonoBehaviour
 {
     [SerializeField] private Image onImage;
 
-    [SerializeField] private float fillAmount = 0f;
+    [Header("チャージ速度")]
     [SerializeField] private float fillSpeed = 0.1f;
 
-    [SerializeField] private bool isFull = false;
+    private float fillAmount = 0f;
+    private bool isFull = false;
+    private bool isCharging = false;
 
-    // 満タンかどうか
     public bool IsFull => isFull;
+    public bool IsCharging => isCharging;
+    public float FillAmount => fillAmount;
 
 
     private void Update()
     {
-        if (isFull)
+        if (!isCharging)
         {
             return;
         }
 
-        // ゲージを増やす
         fillAmount += fillSpeed * Time.deltaTime;
-
         fillAmount = Mathf.Clamp01(fillAmount);
 
         onImage.fillAmount = fillAmount;
@@ -32,33 +33,52 @@ public class ShotController : MonoBehaviour
         {
             fillAmount = 1f;
             isFull = true;
+            isCharging = false;
         }
     }
 
 
-    // ショットを使用
-    public void ShotLost()
-    {
-        fillAmount = 0f;
-        isFull = false;
-
-        onImage.fillAmount = fillAmount;
-    }
-
-
     // チャージ開始
-    public void Reset()
+    public void StartCharge()
     {
-        isFull = false;
+        if (isFull)
+        {
+            return;
+        }
+
+        isCharging = true;
     }
 
 
-    // 最初から満タン
+    // 満タンにする
     public void SetFull()
     {
         fillAmount = 1f;
         isFull = true;
+        isCharging = false;
+
+        onImage.fillAmount = 1f;
+    }
+
+
+    // 状態をコピーする
+    public void CopyFrom(ShotController source)
+    {
+        fillAmount = source.fillAmount;
+        isFull = source.isFull;
+        isCharging = source.isCharging;
 
         onImage.fillAmount = fillAmount;
+    }
+
+
+    // 空にする
+    public void Clear()
+    {
+        fillAmount = 0f;
+        isFull = false;
+        isCharging = false;
+
+        onImage.fillAmount = 0f;
     }
 }
